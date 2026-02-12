@@ -1,1 +1,21 @@
-<input [type]="type" [placeholder]="placeholder" />
+<div class="input-container">
+  <!-- Ícone esquerdo -->
+  @if (icon) {
+    <span class="material-symbols-outlined icon-left">
+      {{ icon }}
+    </span>
+  }
+
+  <input [type]="inputType" [placeholder]="placeholder" />
+
+  <!-- Ícone de visualizar senha -->
+  @if (type === 'password') {
+    <span class="material-symbols-outlined icon-right" (click)="togglePassword()">
+      @if (hidePassword) {
+        visibility
+      } @else {
+        visibility_off
+      }
+    </span>
+  }
+</div>

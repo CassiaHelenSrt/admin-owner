@@ -1,14 +1,61 @@
-input {
-  width: 100%;
-  padding: 10px 15px;
+.input-container {
+  display: flex;
+  align-items: center;
+  width: 100% !important;
+  padding: 8px 10px;
   border: 1px solid #fe82b6;
   border-radius: 6px;
-  font-size: 14px;
-  outline: none;
-  transition: 0.3s ease;
+  gap: 5px;
+
+  span {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 23px;
+  }
+
+  input {
+    width: 100%;
+    font-size: 14px;
+    outline: none;
+    border: none;
+  }
+
+  .icon-right {
+    cursor: pointer !important;
+  }
 }
 
-input:focus {
-  border-color: #fe82b6;
-  box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.1);
-}
+// .input-email,
+// .input-password {
+//   display: flex;
+//   align-items: center;
+//   padding: 10px 15px;
+//   border: 1px solid #fe82b6;
+//   border-radius: 6px;
+//   gap: 10px;
+//   width: 100%;
+
+//   span {
+//     color: rgba(0, 0, 0, 0.5);
+//     font-size: 23px;
+//   }
+
+// }
+
+// .icon-left {
+//   position: absolute;
+//   left: 12px;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   font-size: 20px;
+//   color: #999;
+// }
+
+// .icon-right {
+//   position: absolute;
+//   right: 12px;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   font-size: 20px;
+//   cursor: pointer;
+//   color: #999;
+// }
