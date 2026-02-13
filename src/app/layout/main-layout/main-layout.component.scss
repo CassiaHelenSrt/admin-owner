@@ -4,6 +4,29 @@
 
 .content {
   flex: 1;
-  padding: 30px;
   background: #f7f7f7;
+}
+
+.topbar {
+  display: none;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .topbar {
+    display: flex;
+    padding: 20px 16px;
+
+    .menu-btn {
+      background-color: transparent;
+      cursor: pointer;
+      border: none;
+      outline: none;
+
+      span {
+        font-size: 25px;
+        color: #fe82b6;
+      }
+    }
+  }
 }

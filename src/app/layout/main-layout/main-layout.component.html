@@ -1,7 +1,15 @@
 <div class="layout">
-  <app-sidebar></app-sidebar>
+  <app-sidebar [isOpen]="isSidebarOpen" (close)="closeSidebar()"></app-sidebar>
 
   <div class="content">
-    <router-outlet></router-outlet>
+    <div class="topbar">
+      <button class="menu-btn" (click)="toggleSidebar()">
+        <span class="material-symbols-outlined"> menu </span>
+      </button>
+    </div>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

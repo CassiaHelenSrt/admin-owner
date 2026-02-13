@@ -6,8 +6,17 @@ import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
   selector: 'app-main-layout',
   standalone: true,
   imports: [RouterOutlet, SidebarComponent],
-
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss'],
 })
-export class MainLayoutComponent {}
+export class MainLayoutComponent {
+  isSidebarOpen = false;
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  closeSidebar() {
+    this.isSidebarOpen = false;
+  }
+}
