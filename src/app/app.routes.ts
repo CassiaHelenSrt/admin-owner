@@ -1,20 +1,14 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-  },
-
-  // Login (fora do layout)
+  // Login (público)
   {
     path: 'login',
     loadComponent: () =>
       import('./features/auth/pages/login/login.component').then((m) => m.LoginComponent),
   },
 
-  // Rotas que usam o layout com sidebar
+  // Rotas com layout
   {
     path: '',
     loadComponent: () =>
@@ -29,5 +23,11 @@ export const routes: Routes = [
           ),
       },
     ],
+  },
+
+  // Redirecionamento final (sempre por último)
+  {
+    path: '**',
+    redirectTo: 'login',
   },
 ];

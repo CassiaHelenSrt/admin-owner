@@ -6,7 +6,7 @@
     </span>
   }
 
-  <input [type]="inputType" [placeholder]="placeholder" />
+  <input [type]="inputType" [placeholder]="placeholder" [formControl]="ngControl.control" />
 
   <!-- Ícone de visualizar senha -->
   @if (type === 'password') {

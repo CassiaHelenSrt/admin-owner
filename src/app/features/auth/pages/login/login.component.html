@@ -11,14 +11,16 @@
         <h2>Administrador</h2>
       </div>
 
-      <form>
-        <app-input type="email" placeholder="E-mail" icon="mail"> </app-input>
+      <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        <app-input type="email" placeholder="E-mail" icon="mail" formControlName="email">
+        </app-input>
 
-        <app-input type="password" placeholder="Senha" icon="lock"> </app-input>
+        <app-input type="password" placeholder="Senha" icon="lock" formControlName="password">
+        </app-input>
 
         <a class="forgot">Esqueceu a senha?</a>
 
-        <app-button> LOGAR </app-button>
+        <app-button type="submit" [disabled]="loginForm.invalid"> LOGAR </app-button>
       </form>
     </div>
   </div>

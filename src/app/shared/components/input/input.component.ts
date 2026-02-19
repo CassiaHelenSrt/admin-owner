@@ -1,19 +1,22 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Optional, Self } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: 'input.component.html',
-  styleUrls: ['input.component.scss'], // ← CORRETO
+  styleUrls: ['input.component.scss'],
 })
 export class InputComponent {
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
   @Input() icon: string = '';
 
-  hidePassword: boolean = true;
+  hidePassword = true;
+
+  constructor(@Optional() @Self() public ngControl: NgControl) {}
 
   togglePassword() {
     this.hidePassword = !this.hidePassword;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: 'button.component.html',
   styleUrls: ['button.component.scss'], // ← CORRETO
 })
-export class ButtonComponent {}
+export class ButtonComponent {
+  @Input() type: 'button' | 'submit' = 'button';
+  @Input() disabled = false;
+}
