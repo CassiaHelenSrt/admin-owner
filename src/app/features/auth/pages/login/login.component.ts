@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 
 import { Router } from '@angular/router';
@@ -15,17 +15,14 @@ import { InputComponent } from '@shared/components/input/input.component';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  loginForm!: FormGroup;
+  private formBuilder = inject(FormBuilder);
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-  ) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
-  }
+  constructor(private router: Router) {}
+
+  protected loginForm = this.formBuilder.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+  });
 
   submit() {
     if (this.loginForm.invalid) {
