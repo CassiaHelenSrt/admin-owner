@@ -10,7 +10,7 @@
       <!-- <div class="active"></div> -->
     </a>
 
-    <a routerLink="/clientes" routerLinkActive="active">
+    <a routerLink="/client" routerLinkActive="active">
       <span class="material-symbols-outlined">person</span>
       Clientes
     </a>
@@ -36,37 +36,7 @@
     </a>
   </nav>
 </aside>
-<!-- <div class="sidebar" [class.open]="isOpen">
-  <a routerLink="/dashboard" routerLinkActive="active">
-    <span class="material-symbols-outlined">dashboard</span>
-    Dashboard
-  </a>
 
-  <a routerLink="/clientes" routerLinkActive="active">
-    <span class="material-symbols-outlined">person</span>
-    Clientes
-  </a>
-
-  <a routerLink="/agendamentos" routerLinkActive="active">
-    <span class="material-symbols-outlined">calendar_month</span>
-    Agendamentos
-  </a>
-
-  <a routerLink="/servicos" routerLinkActive="active">
-    <span class="material-symbols-outlined">content_cut</span>
-    Serviços
-  </a>
-
-  <a routerLink="/pagamentos" routerLinkActive="active">
-    <span class="material-symbols-outlined">payments</span>
-    Pagamentos
-  </a>
-
-  <a routerLink="/campanhas" routerLinkActive="active">
-    <span class="material-symbols-outlined">campaign</span>
-    Campanhas
-  </a>
-</div> -->
 @if (isOpen) {
   <div class="overlay" (click)="closeMenu()"></div>
 }
