@@ -16,29 +16,29 @@
     <tbody>
       @for (item of data; track item.id) {
         <tr>
-          <td>{{ item.id }}</td>
-          <td>
+          <td data-label="ID">{{ item.id }}</td>
+          <td data-label="Imagem">
             @if (item.image) {
-              <img [src]="item.image || 'assets/login.jpg'" class="avatar" alt="Imagem" />
+              <img class="avatar" [src]="item.image || 'assets/login.jpg'" />
             } @else {
-              <img src="assets/login.jpg" width="200" />
+              <img class="avatar" src="assets/login.jpg" width="200" />
             }
           </td>
 
-          <td>{{ item.name }}</td>
-          <td>{{ item.type }}</td>
+          <td data-label="Nome">{{ item.name }}</td>
+          <td data-label="Tipo">{{ item.type }}</td>
 
-          <td>
+          <td data-label="Duração">
             {{ item.price | currency: 'BRL' }}
           </td>
 
-          <td>{{ item.duration }}</td>
+          <td data-label="Duração">{{ item.duration }}</td>
 
-          <td class="description">
+          <td data-label="Descrição" class="description">
             {{ item.description }}
           </td>
 
-          <td class="actions">
+          <td data-label="Ações" class="actions">
             <button class="btn-edit" (click)="onEdit(item)">
               <span class="material-symbols-outlined"> edit </span>
             </button>
