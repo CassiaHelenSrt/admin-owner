@@ -12,7 +12,7 @@ export class ClientComponent {
   services = [
     {
       id: 1,
-      image: 'assetes/login.jpg',
+      image: '/assets/login.jpg',
       name: 'Volume Brasileiro',
       type: 'Extensão de Cílios',
       price: 150,
@@ -21,7 +21,7 @@ export class ClientComponent {
     },
     {
       id: 2,
-      image: 'assetes/login.jpg',
+      image: '/assets/login.jpg',
       name: 'Volume Brasileiro',
       type: 'Extensão de Cílios',
       price: 150,
@@ -30,7 +30,7 @@ export class ClientComponent {
     },
     {
       id: 3,
-      image: 'assetes/login.jpg',
+      image: '/assets/login.jpg',
       name: 'Volume Brasileiro',
       type: 'Extensão de Cílios',
       price: 150,

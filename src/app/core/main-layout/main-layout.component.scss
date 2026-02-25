@@ -2,9 +2,15 @@
   display: flex;
 }
 
-.content {
+.main-content {
   flex: 1;
   background: #f7f7f7;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .topbar {

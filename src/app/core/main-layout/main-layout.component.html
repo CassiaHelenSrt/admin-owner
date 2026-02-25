@@ -1,14 +1,14 @@
 <div class="layout">
   <app-sidebar [isOpen]="isSidebarOpen" (close)="closeSidebar()"></app-sidebar>
 
-  <div class="content">
+  <div class="main-content">
     <div class="topbar">
       <button class="menu-btn" (click)="toggleSidebar()">
         <span class="material-symbols-outlined"> menu </span>
       </button>
     </div>
-
     <div class="content">
+      <app-header></app-header>
       <router-outlet></router-outlet>
     </div>
   </div>
