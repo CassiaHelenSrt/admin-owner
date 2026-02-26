@@ -11,7 +11,11 @@
         <h2>Administrador</h2>
       </div>
 
-      <form [formGroup]="loginForm" (ngSubmit)="submit()">
+      <form
+        class="flex flex-direction-column align-items-center justify-content-center"
+        [formGroup]="loginForm"
+        (ngSubmit)="submit()"
+      >
         <app-input type="email" placeholder="E-mail" icon="mail" formControlName="email">
         </app-input>
 

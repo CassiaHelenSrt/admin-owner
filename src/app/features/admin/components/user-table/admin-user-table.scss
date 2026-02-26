@@ -22,7 +22,6 @@
       font-size: 16px;
     }
     .avatar {
-      background-color: red;
       width: 30px;
       height: 30px;
       border-radius: 50%;
@@ -64,12 +63,12 @@
 
       .btn-edit {
         background-color: rgba($color: #4f46e5, $alpha: 0.1);
-        color: #4f46e5;
+        color: var(--color-icon-edit);
       }
 
       .btn-delete {
         background-color: rgba($color: #ef4444, $alpha: 0.1);
-        color: #ef4444;
+        color: var(--color-icon-delete);
       }
     }
   }
