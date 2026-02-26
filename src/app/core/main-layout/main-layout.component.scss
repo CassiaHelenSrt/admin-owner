@@ -10,29 +10,10 @@
 .content {
   display: flex;
   flex-direction: column;
+  height: 100vh;
   gap: 30px;
 }
 
 .topbar {
   display: none;
-}
-
-/* MOBILE */
-@media (max-width: 1200px) {
-  .topbar {
-    display: flex;
-    padding: 20px 16px;
-
-    .menu-btn {
-      background-color: transparent;
-      cursor: pointer;
-      border: none;
-      outline: none;
-
-      span {
-        font-size: 25px;
-        color: #fe82b6;
-      }
-    }
-  }
 }

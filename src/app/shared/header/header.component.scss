@@ -1,13 +1,21 @@
 .header {
-  padding: 30px 20px;
+  padding: 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: end;
+  width: 100%;
 
-  h3 {
-    font-size: 20px;
-    font-weight: 600;
-    color: rgba($color: #000000, $alpha: 0.7);
+  .menu-btn {
+    display: none;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
+
+    span {
+      font-size: 25px;
+      color: #fe82b6;
+    }
   }
 
   .user-info {
@@ -30,10 +38,10 @@
 
       .img-user {
         img {
-          min-width: 40px;
-          min-height: 40px;
-          width: 40px;
-          height: 40px;
+          min-width: 30px;
+          min-height: 30px;
+          width: 30px;
+          height: 30px;
           border-radius: 50%;
           object-fit: cover;
         }
@@ -44,13 +52,9 @@
         flex-direction: column;
 
         p {
-          // white-space: nowrap;
-          // overflow: hidden;
-          // text-overflow: ellipsis;
-          width: 40px;
           font-weight: 600;
           margin: 0;
-          font-size: 16px;
+          font-size: 13px;
           color: rgba($color: #000000, $alpha: 0.7);
         }
       }
@@ -60,6 +64,19 @@
         font-size: 20px;
         color: rgba($color: #000000, $alpha: 0.7);
       }
+    }
+  }
+}
+/* MOBILE */
+@media (max-width: 1200px) {
+  .header {
+    display: flex;
+    position: fixed;
+    justify-content: space-between;
+    background: #f7f7f7;
+    gap: 20px;
+    .menu-btn {
+      display: block;
     }
   }
 }
