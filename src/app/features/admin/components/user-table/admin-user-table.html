@@ -44,7 +44,7 @@
             </button>
 
             <button class="btn-delete">
-              <span class="material-symbols-outlined"> delete </span>
+              <span class="material-symbols-outlined" (click)="openDelete(item)"> delete </span>
             </button>
           </td>
         </tr>
@@ -60,12 +60,8 @@
     @if (modalType === 'edit') {
       <app-edit-modal [data]="selectedItem" (save)="handleEdit($event)"> </app-edit-modal>
     }
-
-    <!-- <app-delete-confirm
-      *ngIf="modalType === 'delete'"
-      [data]="selectedItem"
-      (confirm)="handleDelete($event)"
-    >
-    </app-delete-confirm>  -->
+    @if (modalType === 'delete') {
+      <app-delete-modal [data]="selectedItem" (confirm)="handleDelete($event)"> </app-delete-modal>
+    }
   </app-modal>
 }

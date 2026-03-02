@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ModalComponent } from '@shared/modal/modal.component';
 import { EditModalComponent } from '../edit-modal/edit-modal.component';
+import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
 export interface UserTableItem {
   id: number;
@@ -16,7 +17,7 @@ export interface UserTableItem {
 @Component({
   selector: 'app-admin-user-table',
   standalone: true,
-  imports: [CommonModule, ModalComponent, EditModalComponent],
+  imports: [CommonModule, ModalComponent, EditModalComponent, DeleteModalComponent],
   templateUrl: './admin-user-table.html',
   styleUrl: './admin-user-table.scss',
 })
