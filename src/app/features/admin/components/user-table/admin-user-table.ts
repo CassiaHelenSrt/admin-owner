@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ModalComponent } from '@shared/modal/modal.component';
+import { EditModalComponent } from '../edit-modal/edit-modal.component';
 
 export interface UserTableItem {
   id: number;
@@ -14,21 +16,45 @@ export interface UserTableItem {
 @Component({
   selector: 'app-admin-user-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ModalComponent, EditModalComponent],
   templateUrl: './admin-user-table.html',
   styleUrl: './admin-user-table.scss',
 })
 export class AdminUserTable {
   @Input() data: UserTableItem[] = [];
 
-  @Output() edit = new EventEmitter<UserTableItem>();
-  @Output() delete = new EventEmitter<UserTableItem>();
+  modalType: 'edit' | 'delete' | null = null;
+  selectedItem: any = null;
 
-  onEdit(item: UserTableItem) {
-    this.edit.emit(item);
+  openEdit(item: any) {
+    this.selectedItem = { ...item }; // evita mutação direta
+    this.modalType = 'edit';
   }
 
-  onDelete(item: UserTableItem) {
-    this.delete.emit(item);
+  openDelete(item: any) {
+    this.selectedItem = item;
+    this.modalType = 'delete';
+  }
+
+  closeModal() {
+    this.modalType = null;
+    this.selectedItem = null;
+  }
+
+  handleEdit(updatedData: any) {
+    console.log('Atualizar item', updatedData);
+
+    // aqui você chama sua API
+    // this.service.update(updatedData).subscribe()
+
+    this.closeModal();
+  }
+
+  handleDelete(item: any) {
+    console.log('Excluir item', item);
+
+    // this.service.delete(item.id).subscribe()
+
+    this.closeModal();
   }
 }

@@ -1,0 +1,40 @@
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  h2 {
+    font-size: 20px;
+    color: rgba($color: #000000, $alpha: 0.7);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+
+    input,
+    textarea {
+      padding: 8px 10px;
+      border: 1px solid var(--color-primary);
+      border-radius: 6px;
+      gap: 5px;
+      width: 100%;
+      font-size: 14px;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(90deg, #fe82b6);
+      border: none;
+      border-radius: 5px;
+      color: var(--white-bg);
+      font-weight: 600;
+      cursor: pointer !important;
+      transition: 0.3s ease;
+    }
+  }
+}
