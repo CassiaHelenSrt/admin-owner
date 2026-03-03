@@ -27,6 +27,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/admin/pages/client/client.component').then((m) => m.ClientComponent),
       },
+      {
+        path: 'products',
+        loadComponent: () =>
+          import('./features/admin/pages/products/products.component').then(
+            (m) => m.ProductsComponent,
+          ),
+      },
     ],
   },
 

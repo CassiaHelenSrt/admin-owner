@@ -14,6 +14,16 @@ export interface UserTableItem {
   description: string;
 }
 
+export interface ClientTableItem {
+  id: number;
+  image: string;
+  name: string;
+  type: string;
+  price: number;
+  duration: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-admin-user-table',
   standalone: true,
