@@ -1,2 +1,7 @@
-<app-admin-user-table [data]="services" (edit)="handleEdit($event)" (delete)="handleDelete($event)">
+<app-admin-user-table
+  [data]="clients"
+  [columns]="clientColumns"
+  (edit)="handleEdit($event)"
+  (delete)="handleDelete($event)"
+>
 </app-admin-user-table>

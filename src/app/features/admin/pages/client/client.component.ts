@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
-import { AdminUserTable } from '../../components/user-table/admin-user-table';
+import { AdminUserTable, TableColumn } from '../../components/user-table/admin-user-table';
+
+export interface Client {
+  id: number;
+  name: string;
+  phone: string;
+  email: string;
+  annotation: string;
+}
 
 @Component({
   selector: 'app-client',
@@ -9,41 +17,35 @@ import { AdminUserTable } from '../../components/user-table/admin-user-table';
   styleUrls: ['./client.component.scss'],
 })
 export class ClientComponent {
-  services = [
+  clients: Client[] = [
     {
       id: 1,
-      image: '/assets/login.jpg',
-      name: 'Volume Brasileiro',
-      type: 'Extensão de Cílios',
-      price: 150,
-      duration: '1h30min',
-      description: 'Alongamento de cílios com técnica volume brasileiro',
+      name: 'Cassia',
+      phone: '99999999',
+      email: 'cassia@gmail.com',
+      annotation: 'Alergia a alguns produtos',
     },
     {
       id: 2,
-      image: '/assets/login.jpg',
-      name: 'Volume Brasileiro',
-      type: 'Extensão de Cílios',
-      price: 150,
-      duration: '1h30min',
-      description: 'Alongamento de cílios com técnica volume brasileiro',
-    },
-    {
-      id: 3,
-      image: '/assets/login.jpg',
-      name: 'Volume Brasileiro',
-      type: 'Extensão de Cílios',
-      price: 150,
-      duration: '1h30min',
-      description: 'Alongamento de cílios com técnica volume brasileiro',
+      name: 'Maria',
+      phone: '88888888',
+      email: 'maria@gmail.com',
+      annotation: 'Alergia a alguns produtos',
     },
   ];
 
-  handleEdit(item: any) {
+  clientColumns: TableColumn<Client>[] = [
+    { label: 'Nome', field: 'name' },
+    { label: 'Telefone', field: 'phone' },
+    { label: 'Email', field: 'email' },
+    { label: 'Anotação', field: 'annotation' },
+  ];
+
+  handleEdit(item: Client) {
     console.log('Editar', item);
   }
 
-  handleDelete(item: any) {
+  handleDelete(item: Client) {
     console.log('Excluir', item);
   }
 }

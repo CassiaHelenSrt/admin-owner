@@ -1,27 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ModalComponent } from '@shared/modal/modal.component';
 import { EditModalComponent } from '../edit-modal/edit-modal.component';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
+import { Client } from '../../pages/client/client.component';
 
-export interface UserTableItem {
-  id: number;
-  image: string;
-  name: string;
-  type: string;
-  price: number;
-  duration: string;
-  description: string;
-}
-
-export interface ClientTableItem {
-  id: number;
-  image: string;
-  name: string;
-  type: string;
-  price: number;
-  duration: string;
-  description: string;
+export interface TableColumn<T> {
+  label: string;
+  field: keyof T;
 }
 
 @Component({
@@ -31,8 +17,15 @@ export interface ClientTableItem {
   templateUrl: './admin-user-table.html',
   styleUrl: './admin-user-table.scss',
 })
-export class AdminUserTable {
-  @Input() data: UserTableItem[] = [];
+export class AdminUserTable<T> {
+  @Input() data: T[] = [];
+  @Input() columns: TableColumn<T>[] = [];
+
+  @Output() edit = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<any>();
+
+  // @Input() columns: { label: string; field: string }[] = [];
+  // @Input() actions: any[] = [];
 
   modalType: 'edit' | 'delete' | null = null;
   selectedItem: any = null;
@@ -42,7 +35,7 @@ export class AdminUserTable {
     this.modalType = 'edit';
   }
 
-  openDelete(item: any) {
+  openDelete(item: T) {
     this.selectedItem = item;
     this.modalType = 'delete';
   }
@@ -52,7 +45,7 @@ export class AdminUserTable {
     this.selectedItem = null;
   }
 
-  handleEdit(updatedData: any) {
+  handleEdit(updatedData: T) {
     console.log('Atualizar item', updatedData);
 
     // aqui você chama sua API
@@ -61,7 +54,7 @@ export class AdminUserTable {
     this.closeModal();
   }
 
-  handleDelete(item: any) {
+  handleDelete(item: T) {
     console.log('Excluir item', item);
 
     // this.service.delete(item.id).subscribe()
