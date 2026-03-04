@@ -13,12 +13,20 @@
       @for (item of data; track item) {
         <tr>
           @for (column of columns; track column.field) {
-            <td [attr.data-label]="column.label">
-              {{ item[column.field] }}
+            <td [attr.data-label]="column.label" [ngClass]="column.className">
+              @if (column.type === 'image') {
+                <img
+                  class="avatar"
+                  [src]="item[column.field] || '/assets/login.jpg'"
+                  alt="imagem"
+                />
+              } @else {
+                {{ item[column.field] }}
+              }
             </td>
           }
 
-          <td class="actions">
+          <td class="actions" data-label="Ações">
             <button class="btn-edit" (click)="openEdit(item)">
               <span class="material-symbols-outlined"> edit </span>
             </button>

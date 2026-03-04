@@ -8,6 +8,8 @@ import { Client } from '../../pages/client/client.component';
 export interface TableColumn<T> {
   label: string;
   field: keyof T;
+  type?: 'text' | 'image';
+  className?: string;
 }
 
 @Component({

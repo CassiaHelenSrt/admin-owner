@@ -3,6 +3,7 @@ import { AdminUserTable, TableColumn } from '../../components/user-table/admin-u
 
 export interface Client {
   id: number;
+  image: string;
   name: string;
   phone: string;
   email: string;
@@ -20,6 +21,7 @@ export class ClientComponent {
   clients: Client[] = [
     {
       id: 1,
+      image: '/assets/login.jpg',
       name: 'Cassia',
       phone: '99999999',
       email: 'cassia@gmail.com',
@@ -27,6 +29,7 @@ export class ClientComponent {
     },
     {
       id: 2,
+      image: '/assets/login.jpg',
       name: 'Maria',
       phone: '88888888',
       email: 'maria@gmail.com',
@@ -35,6 +38,8 @@ export class ClientComponent {
   ];
 
   clientColumns: TableColumn<Client>[] = [
+    { label: 'Id', field: 'id' },
+    { label: 'Foto', field: 'image', type: 'image' },
     { label: 'Nome', field: 'name' },
     { label: 'Telefone', field: 'phone' },
     { label: 'Email', field: 'email' },
