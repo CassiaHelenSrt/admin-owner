@@ -1,0 +1,246 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #f8f5f7;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 20px;
+}
+
+.scheduling {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--color-primary);
+    color: var(--white-bg);
+    border: none;
+    outline: none;
+    padding: 8px 15px;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    span {
+      font-size: 20px;
+      color: var(--white-bg);
+    }
+  }
+
+  .button:hover {
+    opacity: 0.9;
+  }
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+.filters {
+  display: flex;
+  gap: 15px;
+
+  button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 8px 15px;
+    background-color: #ddd;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 5px;
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.filters input,
+.filters select {
+  outline: none;
+  padding: 8px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: 80px repeat(5, 1fr);
+    gap: 15px;
+
+    .line {
+      width: 100%;
+      height: 1px;
+      border: 1px solid #ddd;
+    }
+  }
+
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+      font-weight: 600;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    button {
+      border-radius: 5px;
+      padding: 5px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      background-color: #ddd;
+
+      span {
+        font-size: 25px;
+        color: rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+
+  .time {
+    font-weight: 600;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .event {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    background: #ffe6ed;
+    padding: 10px;
+    border-radius: 10px;
+
+    p {
+      margin: 0;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    small {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  .event.confirmed {
+    background: #e6fff2;
+  }
+}
+
+/* Lista do dia */
+
+.daily {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .container-appointment {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .line {
+      width: 100%;
+      border-bottom: 1px solid #eee;
+    }
+
+    .appointment {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .appointment-items {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        strong {
+          font-size: 16px;
+          font-weight: 600;
+          color: rgba(0, 0, 0, 0.7);
+        }
+        p {
+          font-size: 16px;
+
+          color: rgba(0, 0, 0, 0.7);
+        }
+
+        span {
+          font-size: 16px;
+          font-weight: 600;
+          color: rgba(0, 0, 0, 0.7);
+        }
+      }
+      .status {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+      }
+
+      .status.confirmed {
+        font-size: 16px;
+        font-weight: 600;
+        background: #d4f8e8;
+        color: #1f9d60;
+      }
+
+      .status.pending {
+        font-size: 16px;
+        font-weight: 600;
+        background: #fff4d6;
+        color: #c77c02;
+      }
+      .status.finished {
+        font-size: 16px;
+        font-weight: 600;
+        color: #005eff;
+        background-color: rgba($color: #005eff, $alpha: 0.2);
+      }
+      .status.canceled {
+        font-size: 16px;
+        font-weight: 600;
+        color: red;
+        background-color: rgba($color: red, $alpha: 0.2);
+      }
+    }
+  }
+}
