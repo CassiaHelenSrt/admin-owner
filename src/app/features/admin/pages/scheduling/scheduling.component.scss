@@ -90,13 +90,67 @@ body {
 
   .calendar-grid {
     display: grid;
-    grid-template-columns: 80px repeat(5, 1fr);
-    gap: 15px;
+    grid-template-columns: 80px 1fr 1fr 1fr;
+    gap: 12px;
+    align-items: start;
 
-    .line {
+    .time-column {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .title {
+      font-weight: bold;
+      text-align: center;
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 16px;
+    }
+
+    .time {
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .event {
+      margin: 0 auto;
+      text-align: center;
+      max-width: 250px;
       width: 100%;
-      height: 1px;
-      border: 1px solid #ddd;
+      background: #ffe6ed;
+      padding: 10pxpx;
+      border-radius: 8px;
+      font-size: 14px;
+
+      small {
+        color: rgba(0, 0, 0, 0.7);
+        font-size: 16px;
+      }
+    }
+
+    // .card-status {
+    //   padding: 8px;
+    //   border-radius: 6px;
+    //   color: white;
+    // }
+
+    .confirmed {
+      background-color: rgba($color: #22c55e, $alpha: 0.5);
+    }
+
+    .pending {
+      background-color: rgba($color: #f59e0b, $alpha: 0.5);
+      background: #f59e0b;
+    }
+
+    .finished {
+      background-color: rgba($color: #005eff, $alpha: 0.5);
+    }
+
+    .canceled {
+      background-color: rgba($color: red, $alpha: 0.5);
     }
   }
 
