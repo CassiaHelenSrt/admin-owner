@@ -21,7 +21,7 @@
         <span class="material-symbols-outlined">chevron_left</span>
       </button>
 
-      <h2>{{ getFormattedDate() }}</h2>
+      <h2>{{ formattedDate }}</h2>
 
       <button (click)="nextDay()">
         <span class="material-symbols-outlined">chevron_right</span>
@@ -40,7 +40,7 @@
 
         <!-- MANHÃ -->
         <div>
-          @if (morningHours.includes(hour) && getAppointment(hour); as appointment) {
+          @if (morningHours.includes(hour) && appointmentMap[hour]; as appointment) {
             <div class="event" [ngClass]="appointment.status">
               <small>{{ appointment.client }}</small>
               <p>{{ appointment.service }}</p>
@@ -48,9 +48,8 @@
           }
         </div>
 
-        <!-- TARDE -->
         <div>
-          @if (afternoonHours.includes(hour) && getAppointment(hour); as appointment) {
+          @if (afternoonHours.includes(hour) && appointmentMap[hour]; as appointment) {
             <div class="event" [ngClass]="appointment.status">
               <small>{{ appointment.client }}</small>
               <p>{{ appointment.service }}</p>
@@ -60,7 +59,7 @@
 
         <!-- NOITE -->
         <div>
-          @if (nightHours.includes(hour) && getAppointment(hour); as appointment) {
+          @if (nightHours.includes(hour) && appointmentMap[hour]; as appointment) {
             <div class="event" [ngClass]="appointment.status">
               <small>{{ appointment.client }}</small>
               <p>{{ appointment.service }}</p>
@@ -75,7 +74,7 @@
     <h2>Agendamentos do Dia</h2>
 
     <div class="container-appointment">
-      @for (appointment of getAppointmentsOfDay(); track appointment.start) {
+      @for (appointment of appointmentsOfDay; track appointment.start) {
         <div class="appointment">
           <div class="appointment-items">
             <strong>{{ appointment.client }}</strong>
@@ -91,6 +90,9 @@
         </div>
 
         <div class="line"></div>
+      }
+      @if (!appointmentsOfDay.length) {
+        <p class="no-scheduling">Nenhum agendamento encontrado</p>
       }
     </div>
   </section>
