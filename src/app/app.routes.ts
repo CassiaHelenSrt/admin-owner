@@ -41,6 +41,11 @@ export const routes: Routes = [
             (m) => m.SchedulingComponent,
           ),
       },
+      {
+        path: 'users',
+        loadComponent: () =>
+          import('./features/admin/pages/users/users.component').then((m) => m.UsersComponent),
+      },
     ],
   },
 
