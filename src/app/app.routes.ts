@@ -53,6 +53,13 @@ export const routes: Routes = [
             (m) => m.Paymentscomponent,
           ),
       },
+      {
+        path: 'campaign',
+        loadComponent: () =>
+          import('./features/admin/pages/campaigns/campaigns.component').then(
+            (m) => m.CampaignsComponent,
+          ),
+      },
     ],
   },
 
