@@ -269,26 +269,26 @@ body {
         font-size: 13px;
       }
 
-      .status.confirmed {
+      .confirmed {
         font-size: 16px;
         font-weight: 600;
         background: #d4f8e8;
         color: #1f9d60;
       }
 
-      .status.pending {
+      .pending {
         font-size: 16px;
         font-weight: 600;
         background: #fff4d6;
         color: #c77c02;
       }
-      .status.finished {
+      .finished {
         font-size: 16px;
         font-weight: 600;
         color: #005eff;
         background-color: rgba($color: #005eff, $alpha: 0.2);
       }
-      .status.canceled {
+      .canceled {
         font-size: 16px;
         font-weight: 600;
         color: red;

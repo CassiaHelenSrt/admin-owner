@@ -109,16 +109,16 @@
           font-size: 10px;
         }
 
-        .status.ATIVA {
+        .ativa {
           background: #66b032;
           color: var(--white-bg);
         }
 
-        .status.INATIVA {
+        .encerrada {
           background: #fdecea;
           color: #c62828;
         }
-        .status.AGENDADA {
+        .agendada {
           background-color: #005eff;
           color: var(--white-bg);
           // ff7fff

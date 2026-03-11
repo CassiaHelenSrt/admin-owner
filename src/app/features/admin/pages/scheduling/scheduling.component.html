@@ -84,7 +84,13 @@
             <span> {{ appointment.start }} - {{ appointment.end }} </span>
           </div>
 
-          <span class="status" [ngClass]="appointment.status">
+          <span
+            class="status"
+            [class.confirmed]="appointment.status === 'confirmed'"
+            [class.pending]="appointment.status === 'pending'"
+            [class.agendada]="appointment.status === 'finished'"
+            [class.canceled]="appointment.status === 'canceled'"
+          >
             {{ appointment.status }}
           </span>
         </div>
