@@ -1,9 +1,9 @@
 <section class="campaigns">
   <div class="title">
-    <div class="items">
+    <!-- <div class="items">
       <h2>Campanhas</h2>
       <p>Gerencie suas campanhas de marketing</p>
-    </div>
+    </div> -->
 
     <button class="btn-primary">
       <span class="material-symbols-outlined">add</span> Nova Campanha
@@ -21,56 +21,37 @@
   </div>
 
   <div class="campaign-container">
-    <!-- CAMPANHA 1 -->
-    <div class="campaign-card">
-      <img src="/assets/login.jpg" />
+    @for (campaign of campaigns; track campaign.id) {
+      <div class="campaign-card">
+        <img [src]="campaign.banner || '/assets/login.jpg'" alt="imagem" />
 
-      <div class="content">
-        <div class="promotion">
-          <h3>Promoção de Verão</h3>
-          <p>Corte + escova com 20% de desconto</p>
-        </div>
+        <div class="content">
+          <div class="promotion">
+            <h3>{{ campaign.name }}</h3>
+            <p>{{ campaign.description }}</p>
+          </div>
 
-        <div class="info">
-          <span class="status active">Ativa</span>
-          <p>Mensagens: 1200</p>
-        </div>
+          <div class="info">
+            <span class="status" [ngClass]="campaign.status">
+              {{ campaign.status }}
+            </span>
 
-        <div class="actions">
-          <button class="btn-edit">
-            <span class="material-symbols-outlined"> edit </span>
-          </button>
-          <button class="btn-delete">
-            <span class="material-symbols-outlined"> delete </span>
-          </button>
-        </div>
-      </div>
-    </div>
+            <p>Mensagens: {{ campaign.messagesSent }}</p>
+          </div>
 
-    <!-- CAMPANHA 2 -->
-    <div class="campaign-card">
-      <img src="/assets/login.jpg" />
-
-      <div class="content">
-        <div class="promotion">
-          <h3>Pacote Dia das Mães</h3>
-          <p>Escova + hidratação especial</p>
-        </div>
-
-        <div class="info">
-          <span class="status">Inativo</span>
-          <p>Mensagens: 980</p>
-        </div>
-
-        <div class="actions">
-          <button class="btn-edit">
-            <span class="material-symbols-outlined"> edit </span>
-          </button>
-          <button class="btn-delete">
-            <span class="material-symbols-outlined"> delete </span>
-          </button>
+          <div class="actions">
+            <button class="btn-edit">
+              <span class="material-symbols-outlined"> edit </span>
+            </button>
+            <button class="btn-delete">
+              <span class="material-symbols-outlined"> delete </span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    }
   </div>
+  @if (!campaigns.length) {
+    <div class="empty">Nenhuma campanha encontrada</div>
+  }
 </section>

@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
-  padding: 0px 20px;
+  padding: 0px 20px 20px;
   background: #f6f7fb;
 }
 
@@ -57,11 +57,12 @@
 
 .campaign-container {
   display: flex;
-  justify-content: space-between;
   gap: 30px;
+  flex-wrap: wrap;
 
   .campaign-card {
-    width: 600px;
+    width: 100%;
+    max-width: 600px;
     background: white;
     border-radius: 12px;
     overflow: hidden;
@@ -105,12 +106,22 @@
           padding: 4px 10px;
           border-radius: 20px;
           font-weight: 600;
-          font-size: 13px;
+          font-size: 10px;
         }
 
-        .active {
-          background: #e5f6ea;
-          color: #1e8e3e;
+        .status.ATIVA {
+          background: #66b032;
+          color: var(--white-bg);
+        }
+
+        .status.INATIVA {
+          background: #fdecea;
+          color: #c62828;
+        }
+        .status.AGENDADA {
+          background-color: #005eff;
+          color: var(--white-bg);
+          // ff7fff
         }
 
         p {
