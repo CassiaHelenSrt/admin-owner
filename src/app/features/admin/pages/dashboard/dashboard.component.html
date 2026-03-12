@@ -1,1 +1,152 @@
+<section class="dashboard">
+  <div class="title">
+    <h2>Dashboard</h2>
+    <p>Visão geral da performance do seu salão</p>
+  </div>
 
+  <!-- CARDS -->
+  <div class="cards">
+    <div class="card">
+      <div class="card-items">
+        <span class="material-symbols-outlined">group</span>
+        <p>Clientes</p>
+      </div>
+
+      <p>1215</p>
+    </div>
+
+    <div class="card">
+      <div class="card-items">
+        <span class="material-symbols-outlined">calendar_month</span>
+        <p>Agendamentos</p>
+      </div>
+      <p>324</p>
+    </div>
+
+    <div class="card">
+      <div class="card-items">
+        <span class="material-symbols-outlined">payments</span>
+        <p>Receita Hoje</p>
+      </div>
+      <p>R$ 980</p>
+    </div>
+
+    <div class="card">
+      <div class="card-items">
+        <span class="material-symbols-outlined">notifications</span>
+        <p>Avisos</p>
+      </div>
+      <p>5</p>
+    </div>
+  </div>
+
+  <div class="campaign-dashboard">
+    <div class="campaign-title">
+      <h3>Campanhas Ativas</h3>
+    </div>
+
+    <div class="campaign-container">
+      @for (campaign of campaigns; track campaign.id) {
+        <div class="campaign-card">
+          <img [src]="campaign.banner || '/assets/login.jpg'" alt="imagem" />
+
+          <div class="content">
+            <div class="promotion">
+              <h3>{{ campaign.name }}</h3>
+              <p>{{ campaign.description }}</p>
+            </div>
+
+            <div class="info">
+              <span
+                class="status"
+                [class.ativa]="campaign.status === 'ATIVA'"
+                [class.encerrada]="campaign.status === 'ENCERRADA'"
+                [class.agendada]="campaign.status === 'AGENDADA'"
+              >
+                {{ campaign.status }}
+              </span>
+
+              <p>Mensagens: {{ campaign.messagesSent }}</p>
+            </div>
+
+            <div class="actions">
+              <button class="btn-edit">
+                <span class="material-symbols-outlined"> edit </span>
+              </button>
+              <button class="btn-delete">
+                <span class="material-symbols-outlined"> delete </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="dashboard-content">
+    <div class="revenue-card">
+      <div class="card-header">
+        <h3>Receita do mês</h3>
+      </div>
+
+      <div class="chart">
+        <div class="bar">
+          <span>R$ 970</span>
+        </div>
+
+        <div class="bar active">
+          <span>R$ 750</span>
+        </div>
+
+        <div class="bar">
+          <span>R$ 530</span>
+        </div>
+      </div>
+
+      <div class="info">
+        <p>Receita Hoje: <strong>R$ 980</strong></p>
+        <p>5 agendamentos aguardam</p>
+      </div>
+    </div>
+
+    <!-- LISTA -->
+    <div class="appointments-card">
+      <div class="card-header">
+        <h3>Top Agendamentos</h3>
+      </div>
+
+      <div class="appointment">
+        <div class="avatar"></div>
+
+        <div class="details">
+          <p>Alessandra</p>
+          <span>Corte + Escova</span>
+        </div>
+
+        <small>há 1h</small>
+      </div>
+
+      <div class="appointment">
+        <div class="avatar"></div>
+
+        <div class="details">
+          <p>Helena</p>
+          <span>Coloração</span>
+        </div>
+
+        <small>há 1h</small>
+      </div>
+
+      <div class="appointment">
+        <div class="avatar"></div>
+
+        <div class="details">
+          <p>Larissa</p>
+          <span>Hidratação</span>
+        </div>
+
+        <small>há 1h</small>
+      </div>
+    </div>
+  </div>
+</section>

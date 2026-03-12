@@ -47,17 +47,6 @@ export class CampaignsComponent {
       endDate: new Date('2026-03-12'),
       createdAt: new Date(),
     },
-    {
-      id: 1,
-      name: 'Promoção Relâmpago',
-      description: 'Corte + escova com 30% de desconto',
-      banner: '/assets/login.jpg',
-      status: 'AGENDADA',
-      messagesSent: 300,
-      startDate: new Date('2026-03-19'),
-      endDate: new Date('2026-03-30'),
-      createdAt: new Date(),
-    },
   ];
 
   ngOnInit() {

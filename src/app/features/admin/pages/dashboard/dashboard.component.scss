@@ -1,0 +1,301 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 0px 20px 20px;
+}
+
+.title {
+  margin-bottom: 25px;
+
+  h2 {
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0;
+  }
+
+  p {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0;
+  }
+}
+
+/* CARDS */
+.cards {
+  display: flex;
+  gap: 20px;
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--white-bg);
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    .card-items {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      span {
+        font-size: 30px;
+        color: var(--color-primary);
+      }
+
+      h1 {
+        font-weight: 600;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.7);
+        margin: 0;
+      }
+    }
+
+    p {
+      font-weight: 600;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.5);
+      margin: 0;
+    }
+  }
+}
+.campaign-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .campaign-title {
+    h3 {
+      font-weight: 600;
+      font-size: 20px;
+      color: rgba(0, 0, 0, 0.7);
+      margin: 0;
+    }
+  }
+
+  .campaign-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    // flex-wrap: wrap;
+
+    .campaign-card {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      // max-width: 600px;
+      background: white;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+      img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+      }
+
+      .content {
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .promotion {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          h3 {
+            font-size: 20px;
+            color: var(--color-primary);
+          }
+          p {
+            font-weight: 600;
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.7);
+          }
+        }
+
+        .info {
+          display: flex;
+          justify-content: space-between;
+
+          .status {
+            background-color: #ddd;
+            color: rgba(0, 0, 0, 0.7);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 10px;
+          }
+
+          .ativa {
+            background: #66b032;
+            color: var(--white-bg);
+          }
+
+          .encerrada {
+            background: #fdecea;
+            color: #c62828;
+          }
+          .agendada {
+            background-color: #005eff;
+            color: var(--white-bg);
+            // ff7fff
+          }
+
+          p {
+            font-weight: 600;
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.7);
+            margin: 0;
+          }
+        }
+
+        .actions {
+          display: flex;
+          gap: 10px;
+
+          button {
+            border-radius: 5px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 5px;
+
+            span {
+              font-size: 20px;
+            }
+          }
+          .btn-edit {
+            background-color: rgba($color: #4f46e5, $alpha: 0.1);
+            color: var(--color-icon-edit);
+          }
+
+          .btn-delete {
+            background-color: rgba($color: #ef4444, $alpha: 0.1);
+            color: var(--color-icon-delete);
+          }
+        }
+      }
+    }
+  }
+}
+
+.dashboard-content {
+  display: flex;
+  gap: 30px;
+
+  .revenue-card {
+    width: 100%;
+    padding: 20px;
+    border-radius: 5px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .card-header {
+      h3 {
+        font-weight: 600;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.7);
+        margin: 0;
+      }
+    }
+
+    .chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+      height: 200px;
+      width: 100%;
+      // margin: 20px 0;
+
+      .bar {
+        width: 60px;
+        height: 120px;
+        background: #cfe4f3;
+        border-radius: 6px;
+        position: relative;
+
+        span {
+          position: absolute;
+          top: -25px;
+          font-size: 12px;
+        }
+      }
+
+      .bar.active {
+        height: 160px;
+        background: #ff6b8a;
+      }
+    }
+
+    .info {
+      p {
+        font-weight: 600;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.7);
+        margin: 0;
+      }
+    }
+  }
+
+  .appointments-card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    gap: 20px;
+    max-width: 500px;
+    width: 100%;
+
+    .card-header {
+      h3 {
+        font-weight: 600;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.7);
+        margin: 0;
+      }
+    }
+
+    .appointment {
+      display: flex;
+      align-items: center;
+      background: white;
+      gap: 20px;
+
+      .avatar {
+        width: 35px;
+        height: 35px;
+        background: #ddd;
+        border-radius: 50%;
+      }
+
+      .details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+
+        p {
+          font-weight: 600;
+          font-size: 16px;
+          color: rgba(0, 0, 0, 0.7);
+          margin: 0;
+        }
+        span {
+          font-size: 16px;
+          color: rgba(0, 0, 0, 0.7);
+          margin: 0;
+        }
+      }
+    }
+  }
+}
