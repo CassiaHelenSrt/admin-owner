@@ -1,0 +1,13 @@
+.btn-primary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-primary);
+  color: var(--white-bg);
+  //   font-weight: 600;
+  font-size: 16px;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}

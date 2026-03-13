@@ -1,7 +1,14 @@
-<app-admin-user-table
-  [data]="users"
-  [columns]="usersColumns"
-  (edit)="handleEdit($event)"
-  (delete)="handleDelete($event)"
->
-</app-admin-user-table>
+<section class="container">
+  <div class="title">
+    <button class="btn-primary">
+      <span class="material-symbols-outlined">add</span> Novo colaborador
+    </button>
+  </div>
+  <app-admin-user-table
+    [data]="users"
+    [columns]="usersColumns"
+    (edit)="handleEdit($event)"
+    (delete)="handleDelete($event)"
+  >
+  </app-admin-user-table>
+</section>
