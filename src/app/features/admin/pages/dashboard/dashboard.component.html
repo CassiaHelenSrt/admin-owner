@@ -1,60 +1,61 @@
 <section class="dashboard">
-  <div class="title">
+  <header class="title">
     <h2>Dashboard</h2>
-    <p>Visão geral da performance do seu salão</p>
-  </div>
+    <p>Visão geral da performance do seu studio</p>
+  </header>
 
-  <!-- CARDS -->
-  <div class="cards">
-    <div class="card">
+  <!-- MÉTRICAS -->
+  <section class="cards">
+    <article class="card">
       <div class="card-items">
         <span class="material-symbols-outlined">group</span>
         <p>Clientes</p>
       </div>
+      <strong>1215</strong>
+    </article>
 
-      <p>1215</p>
-    </div>
-
-    <div class="card">
+    <article class="card">
       <div class="card-items">
         <span class="material-symbols-outlined">calendar_month</span>
         <p>Agendamentos</p>
       </div>
-      <p>324</p>
-    </div>
+      <strong>324</strong>
+    </article>
 
-    <div class="card">
+    <article class="card">
       <div class="card-items">
         <span class="material-symbols-outlined">payments</span>
         <p>Receita Hoje</p>
       </div>
-      <p>R$ 980</p>
-    </div>
+      <strong>R$ 980</strong>
+    </article>
 
-    <div class="card">
+    <article class="card">
       <div class="card-items">
         <span class="material-symbols-outlined">notifications</span>
         <p>Avisos</p>
       </div>
-      <p>5</p>
-    </div>
-  </div>
+      <strong>5</strong>
+    </article>
+  </section>
 
-  <div class="campaign-dashboard">
-    <div class="campaign-title">
+  <section class="campaign-dashboard">
+    <header class="campaign-title">
       <h3>Campanhas Ativas</h3>
-    </div>
+    </header>
 
     <div class="campaign-container">
       @for (campaign of campaigns; track campaign.id) {
-        <div class="campaign-card">
-          <img [src]="campaign.banner || '/assets/login.jpg'" alt="imagem" />
+        <article class="campaign-card">
+          <figure>
+            <img [src]="campaign.banner || '/assets/login.jpg'" alt="Banner da campanha" />
+          </figure>
 
           <div class="content">
-            <div class="promotion">
-              <h3>{{ campaign.name }}</h3>
+            <header class="promotion">
+              <h4>{{ campaign.name }}</h4>
               <p>{{ campaign.description }}</p>
-            </div>
+            </header>
 
             <div class="info">
               <span
@@ -69,25 +70,26 @@
               <p>Mensagens: {{ campaign.messagesSent }}</p>
             </div>
 
-            <div class="actions">
-              <button class="btn-edit">
-                <span class="material-symbols-outlined"> edit </span>
+            <footer class="actions">
+              <button class="btn-edit" aria-label="Editar campanha">
+                <span class="material-symbols-outlined">edit</span>
               </button>
-              <button class="btn-delete">
-                <span class="material-symbols-outlined"> delete </span>
+
+              <button class="btn-delete" aria-label="Excluir campanha">
+                <span class="material-symbols-outlined">delete</span>
               </button>
-            </div>
+            </footer>
           </div>
-        </div>
+        </article>
       }
     </div>
-  </div>
+  </section>
 
-  <div class="dashboard-content">
-    <div class="revenue-card">
-      <div class="card-header">
+  <section class="dashboard-content">
+    <article class="revenue-card">
+      <header class="card-header">
         <h3>Receita do mês</h3>
-      </div>
+      </header>
 
       <div class="chart">
         <div class="bar">
@@ -99,54 +101,67 @@
         </div>
 
         <div class="bar">
+          <span>R$ 580</span>
+        </div>
+        <div class="bar">
+          <span>R$ 530</span>
+        </div>
+        <div class="bar">
           <span>R$ 530</span>
         </div>
       </div>
 
-      <div class="info">
+      <footer class="info">
         <p>Receita Hoje: <strong>R$ 980</strong></p>
         <p>5 agendamentos aguardam</p>
-      </div>
-    </div>
+      </footer>
+    </article>
 
-    <!-- LISTA -->
-    <div class="appointments-card">
-      <div class="card-header">
-        <h3>Top Agendamentos</h3>
-      </div>
+    <aside class="appointments-card">
+      <header class="card-header">
+        <h3>Agendamentos do dia</h3>
+      </header>
 
-      <div class="appointment">
-        <div class="avatar"></div>
+      <ul class="appointments-list">
+        <li class="appointment">
+          <div class="items">
+            <div class="avatar"></div>
 
-        <div class="details">
-          <p>Alessandra</p>
-          <span>Corte + Escova</span>
-        </div>
+            <div class="details">
+              <p>Alessandra</p>
+              <span>cílios fio a fio</span>
+            </div>
+          </div>
 
-        <small>há 1h</small>
-      </div>
+          <time>há 1h</time>
+        </li>
 
-      <div class="appointment">
-        <div class="avatar"></div>
+        <li class="appointment">
+          <div class="items">
+            <div class="avatar"></div>
 
-        <div class="details">
-          <p>Helena</p>
-          <span>Coloração</span>
-        </div>
+            <div class="details">
+              <p>Helena</p>
+              <span>cílios fio a fio</span>
+            </div>
+          </div>
 
-        <small>há 1h</small>
-      </div>
+          <time>há 1h</time>
+        </li>
 
-      <div class="appointment">
-        <div class="avatar"></div>
+        <li class="appointment">
+          <div class="items">
+            <div class="avatar"></div>
 
-        <div class="details">
-          <p>Larissa</p>
-          <span>Hidratação</span>
-        </div>
+            <div class="details">
+              <p>Larissa</p>
+              <span>cílios fio a fio</span>
+            </div>
+          </div>
 
-        <small>há 1h</small>
-      </div>
-    </div>
-  </div>
+          <time>há 1h</time>
+        </li>
+      </ul>
+    </aside>
+  </section>
 </section>

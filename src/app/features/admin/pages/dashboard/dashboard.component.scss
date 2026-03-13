@@ -24,16 +24,20 @@
 /* CARDS */
 .cards {
   display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 20px;
 
   .card {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 300px;
     gap: 10px;
     background: var(--white-bg);
     padding: 20px;
     border-radius: 10px;
-    flex: 1;
+
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
     .card-items {
@@ -46,7 +50,7 @@
         color: var(--color-primary);
       }
 
-      h1 {
+      p {
         font-weight: 600;
         font-size: 20px;
         color: rgba(0, 0, 0, 0.7);
@@ -54,7 +58,7 @@
       }
     }
 
-    p {
+    strong {
       font-weight: 600;
       font-size: 16px;
       color: rgba(0, 0, 0, 0.5);
@@ -86,7 +90,7 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      // max-width: 600px;
+      max-width: 600px;
       background: white;
       border-radius: 5px;
       overflow: hidden;
@@ -109,7 +113,7 @@
           flex-direction: column;
           gap: 10px;
 
-          h3 {
+          h4 {
             font-size: 20px;
             color: var(--color-primary);
           }
@@ -192,6 +196,7 @@
 
   .revenue-card {
     width: 100%;
+    min-width: 0;
     padding: 20px;
     border-radius: 5px;
     background: white;
@@ -212,9 +217,10 @@
       display: flex;
       align-items: flex-end;
       gap: 20px;
-      height: 200px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-wrap: nowrap;
       width: 100%;
-      // margin: 20px 0;
 
       .bar {
         width: 60px;
@@ -222,11 +228,14 @@
         background: #cfe4f3;
         border-radius: 6px;
         position: relative;
+        flex: 0 0 auto; // 👈 importante
 
         span {
           position: absolute;
           top: -25px;
           font-size: 12px;
+          font-weight: 600;
+          color: rgba(0, 0, 0, 0.7);
         }
       }
 
@@ -264,38 +273,89 @@
         margin: 0;
       }
     }
-
-    .appointment {
+    .appointments-list {
       display: flex;
-      align-items: center;
-      background: white;
+      flex-direction: column;
       gap: 20px;
-
-      .avatar {
-        width: 35px;
-        height: 35px;
-        background: #ddd;
-        border-radius: 50%;
-      }
-
-      .details {
+      .appointment {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 5px;
+        align-items: center;
+        justify-content: space-between;
+        background: white;
+        gap: 20px;
 
-        p {
-          font-weight: 600;
-          font-size: 16px;
-          color: rgba(0, 0, 0, 0.7);
-          margin: 0;
+        .items {
+          display: flex;
+          align-items: center;
+
+          gap: 10px;
+
+          .avatar {
+            width: 35px;
+            height: 35px;
+            background: #ddd;
+            border-radius: 50%;
+          }
+
+          .details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+
+            p {
+              font-weight: 600;
+              font-size: 16px;
+              color: rgba(0, 0, 0, 0.7);
+              margin: 0;
+            }
+            span {
+              font-size: 16px;
+              color: rgba(0, 0, 0, 0.7);
+              margin: 0;
+            }
+          }
         }
-        span {
+
+        time {
           font-size: 16px;
           color: rgba(0, 0, 0, 0.7);
           margin: 0;
         }
       }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .cards {
+    justify-content: center;
+    .card-items {
+      p {
+        font-size: 16px !important;
+      }
+    }
+  }
+
+  .campaign-container {
+    display: flex;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+  }
+
+  .dashboard-content {
+    display: flex;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+
+    .revenue-card {
+      max-width: 400px !important;
+      width: 100% !important;
+    }
+
+    .appointments-card {
+      max-width: 400px !important;
+      width: 100% !important;
     }
   }
 }
