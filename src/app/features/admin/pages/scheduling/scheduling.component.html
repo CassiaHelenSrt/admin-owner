@@ -1,6 +1,6 @@
 <section class="container">
   <div class="title">
-    <button class="btn-primary">
+    <button (click)="openCreateModal()" class="btn-primary">
       <span class="material-symbols-outlined">add</span>Novo Agendamento
     </button>
   </div>
@@ -105,3 +105,9 @@
     </div>
   </section>
 </section>
+
+@if (modalType) {
+  <app-modal (closeModal)="closeModal()">
+    <app-scheduling-modal (saveEvent)="handleSave($event)"></app-scheduling-modal>
+  </app-modal>
+}

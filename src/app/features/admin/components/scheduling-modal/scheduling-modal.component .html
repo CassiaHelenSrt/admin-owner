@@ -1,0 +1,27 @@
+<section>
+  <h2>Agendar</h2>
+
+  <form [formGroup]="form">
+    <input type="text" placeholder="Nome do cliente" formControlName="client" />
+
+    <input type="text" placeholder="Ex: Volume brasileiro" formControlName="service" />
+
+    <input type="date" formControlName="date" />
+
+    <input type="time" formControlName="start" />
+
+    <input type="time" formControlName="end" />
+
+    <select formControlName="status">
+      <option value="pending">Pendente</option>
+      <option value="confirmed">Confirmado</option>
+      <option value="finished">Finalizado</option>
+      <option value="canceled">Cancelado</option>
+    </select>
+
+    <div class="btn">
+      <button type="button">Cancelar</button>
+      <button type="submit" (click)="save()">Salvar</button>
+    </div>
+  </form>
+</section>

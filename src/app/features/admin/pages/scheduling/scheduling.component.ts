@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ModalComponent } from '@shared/modal/modal.component';
+import { SchedulingModalComponent } from '../../components/scheduling-modal/scheduling-modal.component ';
 
 interface Appointment {
   client: string;
@@ -13,7 +15,7 @@ interface Appointment {
 @Component({
   selector: 'app-scheduling',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ModalComponent, SchedulingModalComponent],
   templateUrl: './scheduling.component.html',
   styleUrls: ['./scheduling.component.scss'],
 })
@@ -93,6 +95,9 @@ export class SchedulingComponent {
     },
   ];
 
+  modalType: 'create' | null = null;
+  selectedItem: any = null;
+
   appointmentsOfDay: Appointment[] = [];
   appointmentMap: { [hour: string]: Appointment } = {};
 
@@ -155,5 +160,31 @@ export class SchedulingComponent {
     this.updateDate();
     this.generateMap();
     this.getAppointmentsOfDay();
+  }
+
+  openCreateModal() {
+    this.selectedItem = null; // importante
+    this.modalType = 'create';
+  }
+
+  closeModal() {
+    this.modalType = null;
+    this.selectedItem = null;
+  }
+
+  createAppointment(data: any) {
+    const newAppointment = {
+      ...data,
+      id: Date.now(),
+    };
+
+    this.appointments.push(newAppointment);
+
+    console.log('form', this.appointments.push(newAppointment));
+  }
+
+  handleSave(data: any) {
+    this.createAppointment(data);
+    this.closeModal();
   }
 }
