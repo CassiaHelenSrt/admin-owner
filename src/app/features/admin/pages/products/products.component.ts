@@ -7,7 +7,7 @@ interface Product {
   image: string;
   type: string;
   price: number;
-  duration: string;
+  duration: number;
   description: string;
 }
 
@@ -36,7 +36,7 @@ export class ProductsComponent {
       name: 'Volume Brasileiro',
       type: 'Extensão de Cílios',
       price: 150,
-      duration: '1h30min',
+      duration: 60,
       description: 'Alongamento de cílios com técnica volume brasileiro',
     },
   ];
