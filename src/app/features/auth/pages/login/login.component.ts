@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { InputComponent } from '@shared/components/input/input.component';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +17,12 @@ import { InputComponent } from '@shared/components/input/input.component';
 })
 export class LoginComponent {
   private formBuilder = inject(FormBuilder);
+  loading = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   protected loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -25,16 +30,28 @@ export class LoginComponent {
   });
 
   submit() {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-      return;
-    }
+    if (this.loginForm.invalid) return;
 
     const { email, password } = this.loginForm.value;
 
-    console.log('Login:', email, password);
+    if (email && password) {
+      this.login(email, password);
+    }
+  }
 
-    // Aqui futuramente vai entrar API
-    // this.router.navigate(['/dashboard']);
+  private login(email: string, password: string) {
+    this.loading = true;
+
+    this.authService.login(email, password).subscribe({
+      next: () => {
+        this.loading = false;
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        this.loading = false;
+        console.error('Erro no login', err);
+        // errorMessage = 'Email ou senha inválidos';
+      },
+    });
   }
 }

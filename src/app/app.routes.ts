@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
   // Login (público)
@@ -8,13 +9,18 @@ export const routes: Routes = [
       import('./features/auth/pages/login/login.component').then((m) => m.LoginComponent),
   },
 
-  // Rotas com layout
   {
     path: '',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./core/main-layout/main-layout.component').then((m) => m.MainLayoutComponent),
 
     children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
       {
         path: 'dashboard',
         loadComponent: () =>
