@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AdminUserTable, TableColumn } from '../../components/user-table/admin-user-table';
+import { ClientService } from '../../services/client';
 
 export interface Client {
   id: number;
@@ -18,25 +19,6 @@ export interface Client {
   styleUrls: ['./client.component.scss'],
 })
 export class ClientComponent {
-  clients: Client[] = [
-    {
-      id: 1,
-      image: '/assets/login.jpg',
-      name: 'Cassia',
-      phone: '99999999',
-      email: 'cassia@gmail.com',
-      annotation: 'Alergia a alguns produtos',
-    },
-    {
-      id: 2,
-      image: '/assets/login.jpg',
-      name: 'Maria',
-      phone: '88888888',
-      email: 'maria@gmail.com',
-      annotation: 'Alergia a alguns produtos',
-    },
-  ];
-
   clientColumns: TableColumn<Client>[] = [
     { label: 'Id', field: 'id' },
     { label: 'Foto', field: 'image', type: 'image' },
@@ -45,6 +27,26 @@ export class ClientComponent {
     { label: 'Email', field: 'email' },
     { label: 'Anotação', field: 'annotation' },
   ];
+
+  clients: Client[] = [];
+
+  constructor(private clientService: ClientService) {}
+
+  ngOnInit() {
+    this.getClients();
+  }
+
+  getClients() {
+    this.clientService.getClients().subscribe({
+      next: (res: any) => {
+        console.log('Dados recebidos:', res);
+        this.clients = res;
+      },
+      error: (err) => {
+        console.error('Erro ao buscar clientes:', err);
+      },
+    });
+  }
 
   handleEdit(item: Client) {
     console.log('Editar', item);

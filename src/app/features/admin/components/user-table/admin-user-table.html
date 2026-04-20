@@ -10,7 +10,7 @@
     </thead>
 
     <tbody>
-      @for (item of data; track item) {
+      @for (item of data; track $index) {
         <tr>
           @for (column of columns; track column.field) {
             <td [attr.data-label]="column.label" [ngClass]="column.className">
