@@ -1,6 +1,6 @@
 <section class="container">
   <div class="title">
-    <button class="btn-primary">
+    <button class="btn-primary" (click)="openCreateModal()">
       <span class="material-symbols-outlined">add</span> Novo colaborador
     </button>
   </div>
@@ -12,4 +12,10 @@
     (delete)="handleDelete($event)"
   >
   </app-admin-user-table>
+
+  @if (isCreateModalOpen) {
+    <app-modal (closeModal)="closeCreateModal()">
+      <app-create-modal [title]="'Novo Cliente'" (save)="handleCreate($event)"> </app-create-modal>
+    </app-modal>
+  }
 </section>

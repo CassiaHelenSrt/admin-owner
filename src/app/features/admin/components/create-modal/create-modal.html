@@ -1,0 +1,17 @@
+<section>
+  <h2>{{ title }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <input formControlName="nome" placeholder="Nome" />
+    <input formControlName="tipo" placeholder="Tipo" />
+    <input formControlName="preco" type="number" placeholder="Preço" />
+    <input formControlName="duracao" placeholder="Duração" />
+    <textarea formControlName="descricao" placeholder="Descrição"></textarea>
+
+    <div class="btn">
+      <button>Cancelar</button>
+
+      <button>Excluir</button>
+    </div>
+  </form>
+</section>

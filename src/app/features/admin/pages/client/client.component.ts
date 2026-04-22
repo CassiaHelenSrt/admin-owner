@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AdminUserTable, TableColumn } from '../../components/user-table/admin-user-table';
 import { ClientService } from '../../services/client';
+import { CreateModalComponent } from '../../components/create-modal/create-modal';
+import { ModalComponent } from '@shared/modal/modal.component';
 
 export interface Client {
   id: number;
@@ -14,11 +16,13 @@ export interface Client {
 @Component({
   selector: 'app-client',
   standalone: true,
-  imports: [AdminUserTable],
+  imports: [AdminUserTable, CreateModalComponent, ModalComponent],
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.scss'],
 })
 export class ClientComponent {
+  isCreateModalOpen = false;
+
   clientColumns: TableColumn<Client>[] = [
     { label: 'Id', field: 'id' },
     { label: 'Foto', field: 'image', type: 'image' },
@@ -46,6 +50,22 @@ export class ClientComponent {
         console.error('Erro ao buscar clientes:', err);
       },
     });
+  }
+
+  openCreateModal() {
+    this.isCreateModalOpen = true;
+  }
+
+  closeCreateModal() {
+    this.isCreateModalOpen = false;
+  }
+
+  handleCreate(data: any) {
+    console.log('Novo cliente:', data);
+
+    // chamar service POST aqui
+
+    this.closeCreateModal();
   }
 
   handleEdit(item: Client) {
