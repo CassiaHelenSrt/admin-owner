@@ -15,7 +15,12 @@
 
   @if (isCreateModalOpen) {
     <app-modal (closeModal)="closeCreateModal()">
-      <app-create-modal [title]="'Novo Cliente'" (save)="handleCreate($event)"> </app-create-modal>
+      <app-create-modal
+        [title]="'Novo Cliente'"
+        (close)="closeCreateModal()"
+        (save)="handleCreate($event)"
+      >
+      </app-create-modal>
     </app-modal>
   }
 </section>

@@ -11,7 +11,10 @@ export class CreateModalComponent {
   @Input() title = '';
 
   @Input() data: any;
+
   @Output() save = new EventEmitter<any>();
+
+  @Output() close = new EventEmitter<void>();
 
   form!: FormGroup;
 
@@ -19,11 +22,9 @@ export class CreateModalComponent {
 
   ngOnInit() {
     this.form = this.fb.group({
-      nome: [this.data?.nome, Validators.required],
-      tipo: [this.data?.tipo, Validators.required],
-      preco: [this.data?.preco, Validators.required],
-      duracao: [this.data?.duracao, Validators.required],
-      descricao: [this.data?.descricao, Validators.required],
+      name: [this.data?.name, Validators.required],
+      email: [this.data?.email, Validators.required],
+      phone: [this.data?.phone, Validators.required],
     });
   }
 
@@ -34,5 +35,9 @@ export class CreateModalComponent {
         ...this.form.value,
       });
     }
+  }
+
+  closeModal() {
+    this.close.emit();
   }
 }

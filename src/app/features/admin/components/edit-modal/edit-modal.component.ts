@@ -18,11 +18,9 @@ export class EditModalComponent {
 
   ngOnInit() {
     this.form = this.fb.group({
-      nome: [this.data?.nome, Validators.required],
-      tipo: [this.data?.tipo, Validators.required],
-      preco: [this.data?.preco, Validators.required],
-      duracao: [this.data?.duracao, Validators.required],
-      descricao: [this.data?.descricao, Validators.required],
+      name: [this.data?.name, Validators.required],
+      email: [this.data?.email, Validators.required],
+      phone: [this.data?.phone, Validators.required],
     });
   }
 

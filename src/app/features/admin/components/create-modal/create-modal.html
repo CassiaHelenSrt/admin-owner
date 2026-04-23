@@ -1,17 +1,14 @@
 <section>
   <h2>{{ title }}</h2>
 
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <input formControlName="nome" placeholder="Nome" />
-    <input formControlName="tipo" placeholder="Tipo" />
-    <input formControlName="preco" type="number" placeholder="Preço" />
-    <input formControlName="duracao" placeholder="Duração" />
-    <textarea formControlName="descricao" placeholder="Descrição"></textarea>
-
-    <div class="btn">
-      <button>Cancelar</button>
-
-      <button>Excluir</button>
-    </div>
+  <form [formGroup]="form">
+    <input formControlName="name" placeholder="Nome" />
+    <input formControlName="email" placeholder="E-mail" />
+    <input formControlName="phone" placeholder="Telefone" />
   </form>
+  <div class="btn">
+    <button (click)="closeModal()">Cancelar</button>
+
+    <button (click)="submit()">Criar</button>
+  </div>
 </section>

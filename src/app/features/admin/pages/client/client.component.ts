@@ -21,6 +21,7 @@ export interface Client {
   styleUrls: ['./client.component.scss'],
 })
 export class ClientComponent {
+  clients: Client[] = [];
   isCreateModalOpen = false;
 
   clientColumns: TableColumn<Client>[] = [
@@ -32,8 +33,6 @@ export class ClientComponent {
     { label: 'Anotação', field: 'annotation' },
   ];
 
-  clients: Client[] = [];
-
   constructor(private clientService: ClientService) {}
 
   ngOnInit() {
@@ -43,7 +42,6 @@ export class ClientComponent {
   getClients() {
     this.clientService.getClients().subscribe({
       next: (res: any) => {
-        console.log('Dados recebidos:', res);
         this.clients = res;
       },
       error: (err) => {
@@ -61,18 +59,38 @@ export class ClientComponent {
   }
 
   handleCreate(data: any) {
-    console.log('Novo cliente:', data);
-
-    // chamar service POST aqui
-
-    this.closeCreateModal();
+    this.clientService.createClient(data).subscribe({
+      next: () => {
+        this.getClients();
+        this.closeCreateModal();
+      },
+      error: (err) => console.error(err),
+    });
   }
 
-  handleEdit(item: Client) {
-    console.log('Editar', item);
+  handleEdit(client: Client) {
+    this.clientService.updateClient(client.id, client).subscribe({
+      next: () => {
+        this.getClients();
+      },
+
+      error: (err) => {
+        console.error('Erro ao editar', err);
+      },
+    });
   }
 
-  handleDelete(item: Client) {
-    console.log('Excluir', item);
+  handleDelete(client: Client) {
+    this.clientService.deleteClent(client.id).subscribe({
+      next: () => {
+        this.getClients();
+        console.log(client);
+        console.log(client.id);
+      },
+
+      error: (err) => {
+        console.error('Erro ao exluir', err);
+      },
+    });
   }
 }

@@ -17,4 +17,12 @@ export class ClientService {
   createClient(clientData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/client`, clientData);
   }
+
+  updateClient(id: number, data: any) {
+    return this.http.put(`http://localhost:3000/client/${id}`, data);
+  }
+
+  deleteClent(id: number) {
+    return this.http.delete(`http://localhost:3000/client/${id}`);
+  }
 }

@@ -48,19 +48,12 @@ export class AdminUserTable<T> {
   }
 
   handleEdit(updatedData: T) {
-    console.log('Atualizar item', updatedData);
-
-    // aqui você chama sua API
-    // this.service.update(updatedData).subscribe()
-
+    this.edit.emit(updatedData);
     this.closeModal();
   }
 
-  handleDelete(item: T) {
-    console.log('Excluir item', item);
-
-    // this.service.delete(item.id).subscribe()
-
+  handleDelete(deleteClient: T) {
+    this.delete.emit(deleteClient);
     this.closeModal();
   }
 }
