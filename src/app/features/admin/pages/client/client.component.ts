@@ -3,6 +3,7 @@ import { AdminUserTable, TableColumn } from '../../components/user-table/admin-u
 import { ClientService } from '../../services/client';
 import { CreateModalComponent } from '../../components/create-modal/create-modal';
 import { ModalComponent } from '@shared/modal/modal.component';
+import { ToastService } from 'src/app/core/services/toast';
 
 export interface Client {
   id: number;
@@ -33,7 +34,10 @@ export class ClientComponent {
     { label: 'Anotação', field: 'annotation' },
   ];
 
-  constructor(private clientService: ClientService) {}
+  constructor(
+    private clientService: ClientService,
+    private toast: ToastService,
+  ) {}
 
   ngOnInit() {
     this.getClients();
@@ -45,7 +49,8 @@ export class ClientComponent {
         this.clients = res;
       },
       error: (err) => {
-        console.error('Erro ao buscar clientes:', err);
+        const mensagem = err.error?.message || 'Erro interno';
+        this.toast.error(mensagem);
       },
     });
   }
@@ -63,8 +68,12 @@ export class ClientComponent {
       next: () => {
         this.getClients();
         this.closeCreateModal();
+        this.toast.success('Criado com sucesso');
       },
-      error: (err) => console.error(err),
+      error: (err) => {
+        const mensagem = err.error?.message || 'Erro interno';
+        this.toast.error(mensagem);
+      },
     });
   }
 
@@ -72,10 +81,12 @@ export class ClientComponent {
     this.clientService.updateClient(client.id, client).subscribe({
       next: () => {
         this.getClients();
+        this.toast.success('Editado com sucesso');
       },
 
       error: (err) => {
-        console.error('Erro ao editar', err);
+        const mensagem = err.error?.message || 'Erro interno';
+        this.toast.error(mensagem);
       },
     });
   }
@@ -84,12 +95,12 @@ export class ClientComponent {
     this.clientService.deleteClent(client.id).subscribe({
       next: () => {
         this.getClients();
-        console.log(client);
-        console.log(client.id);
+        this.toast.success('Excluido com sucesso');
       },
 
       error: (err) => {
-        console.error('Erro ao exluir', err);
+        const mensagem = err.error?.message || 'Erro interno';
+        this.toast.error(mensagem);
       },
     });
   }

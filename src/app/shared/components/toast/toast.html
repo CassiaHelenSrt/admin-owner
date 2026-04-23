@@ -1,0 +1,11 @@
+@if (visible) {
+  <div class="toast" [ngClass]="type">
+    <span (click)="close()" class="material-symbols-outlined icon">
+      {{ getIcon() }}
+    </span>
+
+    <p class="message">
+      {{ message }}
+    </p>
+  </div>
+}

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { InputComponent } from '@shared/components/input/input.component';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ToastService } from 'src/app/core/services/toast';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
+    private toast: ToastService,
     private router: Router,
   ) {}
 
@@ -49,8 +51,8 @@ export class LoginComponent {
       },
       error: (err) => {
         this.loading = false;
-        console.error('Erro no login', err);
-        // errorMessage = 'Email ou senha inválidos';
+        const mensagem = err.error?.message || 'Erro interno';
+        this.toast.error(mensagem);
       },
     });
   }
