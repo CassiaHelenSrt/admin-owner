@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, tap, throwError } from 'rxjs';
+import { tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { AuthResponse } from '../models/auth-response';
 
 @Injectable({
   providedIn: 'root',
@@ -45,12 +46,18 @@ export class AuthService {
       }),
     );
   }
+
   getToken() {
     const token = localStorage.getItem('token');
 
     if (!token) return null;
 
     return token.trim();
+  }
+
+  saveTokens(tokens: AuthResponse) {
+    localStorage.setItem('token', tokens.token);
+    localStorage.setItem('refreshToken', tokens.refreshToken);
   }
 
   isAuthenticated() {

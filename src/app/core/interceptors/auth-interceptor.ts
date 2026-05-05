@@ -1,8 +1,11 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, filter, switchMap, take, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, filter, finalize, switchMap, take, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { HttpContextToken } from '@angular/common/http';
+
+export const RETRY_REQUEST = new HttpContextToken<boolean>(() => false);
 
 let isRefreshing = false;
 let refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
@@ -32,10 +35,16 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         return throwError(() => error);
       }
 
+      // Se já tentou retry e deu 401 de novo → logout
+      if (error.status === 401 && req.context.get(RETRY_REQUEST)) {
+        authService.logout();
+        router.navigate(['/login']);
+        return throwError(() => error);
+      }
       // Se já estiver acontecendo um refresh, esperamos o novo token
       if (isRefreshing) {
         return refreshTokenSubject.pipe(
-          filter((t) => t !== null), // Aguarda até que o token não seja nulo
+          filter((t): t is string => t !== null), // Aguarda até que o token não seja nulo
           take(1), // Pega o primeiro valor e encerra o pipe
           switchMap((newToken) => {
             return next(
@@ -53,11 +62,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
       return authService.refreshToken().pipe(
         switchMap((res) => {
-          isRefreshing = false;
-
           // IMPORTANTE: Salve os tokens novos no Storage!
-          localStorage.setItem('token', res.token);
-          localStorage.setItem('refreshToken', res.refreshToken);
+          authService.saveTokens(res);
 
           // Notifica todas as requisições que estavam esperando na fila
           refreshTokenSubject.next(res.token);
@@ -66,16 +72,21 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           // e ser substituído por um POST preto de sucesso.
           const retryReq = req.clone({
             setHeaders: { Authorization: `Bearer ${res.token}` },
+            context: req.context.set(RETRY_REQUEST, true),
           });
 
           return next(retryReq); // <--- Isso "re-executa" o POST automaticamente
         }),
         catchError((refreshError) => {
           // Se o refresh falhar (ex: refresh token expirou no banco)
-          isRefreshing = false;
+
+          refreshTokenSubject.next(null);
           authService.logout();
           router.navigate(['/login']);
           return throwError(() => refreshError);
+        }),
+        finalize(() => {
+          isRefreshing = false;
         }),
       );
     }),
