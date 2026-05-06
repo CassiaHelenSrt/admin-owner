@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ModalComponent } from '@shared/modal/modal.component';
 import { EditModalComponent } from '../edit-modal/edit-modal.component';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
-import { Client } from '../../pages/client/client.component';
 
 export interface TableColumn<T> {
   label: string;
@@ -34,6 +33,7 @@ export class AdminUserTable<T> {
 
   openEdit(item: any) {
     this.selectedItem = { ...item }; // evita mutação direta
+
     this.modalType = 'edit';
   }
 

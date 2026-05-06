@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AdminUserTable, TableColumn } from '../../components/user-table/admin-user-table';
+import { ProductsService } from '../../services/products';
+import { ToastService } from 'src/app/core/services/toast';
 
 interface Product {
   id: number;
@@ -29,18 +31,29 @@ export class ProductsComponent {
     { label: 'Descrição', field: 'description', className: 'description' },
   ];
 
-  products = [
-    {
-      id: 1,
-      image: '/assets/login.jpg',
-      name: 'Volume Brasileiro',
-      type: 'Extensão de Cílios',
-      price: 150,
-      duration: 60,
-      description: 'Alongamento de cílios com técnica volume brasileiro',
-    },
-  ];
+  products: Product[] = [];
 
+  constructor(
+    private productsService: ProductsService,
+    private toast: ToastService,
+  ) {}
+
+  ngOnInit() {
+    this.getproducts();
+  }
+
+  getproducts() {
+    this.productsService.getproduct().subscribe({
+      next: (res: any) => {
+        this.products = res;
+        console.log('this.products', this.products);
+      },
+      error: (err) => {
+        const mensagem = err.error?.message || 'Erro interno';
+        this.toast.error(mensagem);
+      },
+    });
+  }
   handleEdit(item: Product) {
     console.log('Editar', item);
   }
