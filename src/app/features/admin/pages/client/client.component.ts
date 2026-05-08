@@ -4,6 +4,7 @@ import { ClientService } from '../../services/client';
 import { CreateModalComponent } from '../../components/create-modal/create-modal';
 import { ModalComponent } from '@shared/modal/modal.component';
 import { ToastService } from 'src/app/core/services/toast';
+import { FormBuilder, Validators } from '@angular/forms';
 
 export interface Client {
   id: number;
@@ -34,10 +35,41 @@ export class ClientComponent {
     { label: 'Anotação', field: 'annotation' },
   ];
 
+  clientForm;
+
+  clientFields = [
+    {
+      name: 'name',
+      placeholder: 'Nome',
+      type: 'text',
+    },
+
+    {
+      name: 'email',
+      placeholder: 'Email',
+      type: 'email',
+    },
+
+    {
+      name: 'phone',
+      placeholder: 'Telefone',
+      type: 'text',
+    },
+  ];
+
   constructor(
     private clientService: ClientService,
     private toast: ToastService,
-  ) {}
+    private fb: FormBuilder,
+  ) {
+    this.clientForm = this.fb.group({
+      name: ['', [Validators.required]],
+
+      email: ['', [Validators.required, Validators.email]],
+
+      phone: ['', [Validators.required]],
+    });
+  }
 
   ngOnInit() {
     this.getClients();
@@ -63,8 +95,8 @@ export class ClientComponent {
     this.isCreateModalOpen = false;
   }
 
-  handleCreate(data: any) {
-    this.clientService.createClient(data).subscribe({
+  handleCreate() {
+    this.clientService.createClient(this.clientForm.value).subscribe({
       next: () => {
         this.getClients();
         this.closeCreateModal();

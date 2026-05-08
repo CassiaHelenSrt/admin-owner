@@ -2,10 +2,15 @@
   <h2>{{ title }}</h2>
 
   <form [formGroup]="form">
-    <input formControlName="name" placeholder="Nome" />
-    <input formControlName="email" placeholder="E-mail" />
-    <input formControlName="phone" placeholder="Telefone" />
+    <div *ngFor="let field of fields">
+      <input [type]="field.type" [placeholder]="field.placeholder" [formControlName]="field.name" />
+
+      <small *ngIf="form.get(field.name)?.invalid && form.get(field.name)?.touched">
+        {{ getErrorMessage(field.name) }}
+      </small>
+    </div>
   </form>
+
   <div class="btn">
     <button (click)="closeModal()">Cancelar</button>
 

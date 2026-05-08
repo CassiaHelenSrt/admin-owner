@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { AdminUserTable, TableColumn } from '../../components/user-table/admin-user-table';
 import { ProductsService } from '../../services/products';
 import { ToastService } from 'src/app/core/services/toast';
+import { ModalComponent } from '@shared/modal/modal.component';
+import { CreateModalComponent } from '../../components/create-modal/create-modal';
+import { FormBuilder, Validators } from '@angular/forms';
 
 interface Product {
   id: number;
@@ -16,7 +19,7 @@ interface Product {
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [AdminUserTable],
+  imports: [AdminUserTable, CreateModalComponent, ModalComponent],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
@@ -32,21 +35,62 @@ export class ProductsComponent {
   ];
 
   products: Product[] = [];
+  isCreateModalOpen = false;
+
+  productForm;
+
+  productFields = [
+    {
+      name: 'name',
+      placeholder: 'Nome',
+      type: 'text',
+    },
+
+    {
+      name: 'type',
+      placeholder: 'Tipo',
+      type: 'text',
+    },
+
+    {
+      name: 'price',
+      placeholder: 'Preço',
+      type: 'text',
+    },
+    {
+      name: 'duration',
+      placeholder: 'Duração',
+      type: 'text',
+    },
+    {
+      name: 'description',
+      placeholder: 'Descriçao',
+      type: 'text',
+    },
+  ];
 
   constructor(
     private productsService: ProductsService,
     private toast: ToastService,
-  ) {}
+    private fb: FormBuilder,
+  ) {
+    this.productForm = this.fb.group({
+      name: ['', Validators.required],
+      type: ['', Validators.required],
+      price: ['', Validators.required],
+      duration: ['', Validators.required],
+      description: ['', Validators.required],
+    });
+  }
 
   ngOnInit() {
     this.getproducts();
   }
 
   getproducts() {
-    this.productsService.getproduct().subscribe({
+    this.productsService.getProduct().subscribe({
       next: (res: any) => {
         this.products = res;
-        console.log('this.products', this.products);
       },
       error: (err) => {
         const mensagem = err.error?.message || 'Erro interno';
@@ -54,6 +98,29 @@ export class ProductsComponent {
       },
     });
   }
+
+  openCreateModal() {
+    this.isCreateModalOpen = true;
+  }
+
+  closeCreateModal() {
+    this.isCreateModalOpen = false;
+  }
+
+  handleCreate() {
+    this.productsService.createProduct(this.productForm.value).subscribe({
+      next: () => {
+        this.getproducts();
+        this.closeCreateModal();
+        this.toast.success('Criado com sucesso');
+      },
+      error: (err) => {
+        const mensagem = err.error?.message || 'Erro interno';
+        this.toast.error(mensagem);
+      },
+    });
+  }
+
   handleEdit(item: Product) {
     console.log('Editar', item);
   }

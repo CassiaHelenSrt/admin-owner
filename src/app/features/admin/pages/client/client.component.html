@@ -17,8 +17,10 @@
     <app-modal (closeModal)="closeCreateModal()">
       <app-create-modal
         [title]="'Novo Cliente'"
+        [fields]="clientFields"
+        [form]="clientForm"
         (close)="closeCreateModal()"
-        (save)="handleCreate($event)"
+        (save)="handleCreate()"
       >
       </app-create-modal>
     </app-modal>
