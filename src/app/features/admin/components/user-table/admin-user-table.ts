@@ -22,18 +22,20 @@ export class AdminUserTable<T> {
   @Input() data: T[] = [];
   @Input() columns: TableColumn<T>[] = [];
 
+  @Input() editFields: any[] = [];
+  @Input() editForm!: any;
+  @Input() editTitle: string = 'Editar Registro';
+
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
-
-  // @Input() columns: { label: string; field: string }[] = [];
-  // @Input() actions: any[] = [];
 
   modalType: 'edit' | 'delete' | null = null;
   selectedItem: any = null;
 
   openEdit(item: any) {
-    this.selectedItem = { ...item }; // evita mutação direta
-
+    this.selectedItem = { ...item };
+    // Preenche o formulário com os valores do item selecionado
+    this.editForm.patchValue(item);
     this.modalType = 'edit';
   }
 
@@ -47,10 +49,18 @@ export class AdminUserTable<T> {
     this.selectedItem = null;
   }
 
-  handleEdit(updatedData: T) {
-    this.edit.emit(updatedData);
-    this.closeModal();
+  handleEdit(formValues: any) {
+    // Aqui sim você junta o ID (que está no selectedItem) com o que foi digitado (formValues)
+    const dataToSave = { ...this.selectedItem, ...formValues };
+
+    this.edit.emit(dataToSave); // Envia para o ProductsComponent
+    this.closeModal(); // Fecha o modal
   }
+
+  // handleEdit(updatedData: T) {
+  //   this.edit.emit(updatedData);
+  //   this.closeModal();
+  // }
 
   handleDelete(deleteClient: T) {
     this.delete.emit(deleteClient);

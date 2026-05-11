@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-modal',
@@ -9,27 +9,40 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrls: ['./edit-modal.component.scss'],
 })
 export class EditModalComponent {
-  @Input() data: any;
-  @Output() save = new EventEmitter<any>();
+  @Input() title: string = '';
+  @Input() fields: any[] = [];
+  @Input() form!: FormGroup;
 
-  form!: FormGroup;
+  @Output() save = new EventEmitter<any>(); // <-- Adicione isso
+  @Output() close = new EventEmitter<void>();
 
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit() {
-    this.form = this.fb.group({
-      name: [this.data?.name, Validators.required],
-      email: [this.data?.email, Validators.required],
-      phone: [this.data?.phone, Validators.required],
-    });
-  }
+  constructor() {}
 
   submit() {
     if (this.form.valid) {
-      this.save.emit({
-        ...this.data,
-        ...this.form.value,
-      });
+      this.save.emit();
+    } else {
+      this.form.markAllAsTouched();
     }
+  }
+
+  closeModal() {
+    this.close.emit();
+  }
+
+  getErrorMessage(fieldName: string): string {
+    const control = this.form.get(fieldName);
+
+    if (!control?.errors) return '';
+
+    if (control.errors['required']) {
+      return 'Campo obrigatório';
+    }
+
+    if (control.errors['minlength']) {
+      return `Mínimo de ${control.errors['minlength'].requiredLength} caracteres`;
+    }
+
+    return 'Campo inválido';
   }
 }

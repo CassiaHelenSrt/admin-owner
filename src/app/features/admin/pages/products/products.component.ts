@@ -108,7 +108,13 @@ export class ProductsComponent {
   }
 
   handleCreate() {
-    this.productsService.createProduct(this.productForm.value).subscribe({
+    const data = {
+      ...this.productForm.value,
+
+      price: Number(this.productForm.value.price?.toString().replace(/\./g, '').replace(',', '.')),
+    };
+
+    this.productsService.createProduct(data).subscribe({
       next: () => {
         this.getproducts();
         this.closeCreateModal();
@@ -121,8 +127,20 @@ export class ProductsComponent {
     });
   }
 
-  handleEdit(item: Product) {
-    console.log('Editar', item);
+  handleEdit(product: Product) {
+    const id = product.id;
+    this.productsService.updateProduct(id, this.productForm.value).subscribe({
+      next: () => {
+        this.getproducts();
+
+        this.toast.success('Editado com sucesso');
+      },
+
+      error: (err) => {
+        const mensagem = err.error?.message || 'Erro interno';
+        this.toast.error(mensagem);
+      },
+    });
   }
 
   handleDelete(item: Product) {

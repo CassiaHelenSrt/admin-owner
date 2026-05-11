@@ -1,15 +1,19 @@
 <section>
-  <h2>Editar</h2>
+  <h2>{{ title }}</h2>
 
   <form [formGroup]="form">
-    <input formControlName="name" placeholder="Nome" />
-    <input formControlName="email" placeholder="E-mail" />
-    <input formControlName="phone" placeholder="Telefone" />
+    <div *ngFor="let field of fields">
+      <input [type]="field.type" [placeholder]="field.placeholder" [formControlName]="field.name" />
 
-    <div class="btn">
-      <button>Cancelar</button>
-
-      <button (click)="submit()">Editar</button>
+      <small *ngIf="form.get(field.name)?.invalid && form.get(field.name)?.touched">
+        {{ getErrorMessage(field.name) }}
+      </small>
     </div>
   </form>
+
+  <div class="btn">
+    <button>Cancelar</button>
+
+    <button (click)="submit()">Editar</button>
+  </div>
 </section>

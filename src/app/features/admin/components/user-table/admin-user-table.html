@@ -46,7 +46,13 @@
 @if (modalType) {
   <app-modal (closeModal)="closeModal()">
     @if (modalType === 'edit') {
-      <app-edit-modal [data]="selectedItem" (save)="handleEdit($event)"> </app-edit-modal>
+      <app-edit-modal
+        [title]="editTitle"
+        [fields]="editFields"
+        [form]="editForm"
+        (save)="handleEdit($event)"
+      >
+      </app-edit-modal>
     }
     @if (modalType === 'delete') {
       <app-delete-modal [data]="selectedItem" (confirm)="handleDelete($event)"> </app-delete-modal>

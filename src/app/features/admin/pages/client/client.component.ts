@@ -108,11 +108,12 @@ export class ClientComponent {
       },
     });
   }
-
   handleEdit(client: Client) {
-    this.clientService.updateClient(client.id, client).subscribe({
+    const id = client.id;
+    this.clientService.updateClient(id, this.clientForm.value).subscribe({
       next: () => {
         this.getClients();
+
         this.toast.success('Editado com sucesso');
       },
 

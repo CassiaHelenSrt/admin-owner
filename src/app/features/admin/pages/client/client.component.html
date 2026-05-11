@@ -8,6 +8,9 @@
   <app-admin-user-table
     [data]="clients"
     [columns]="clientColumns"
+    [editFields]="clientFields"
+    [editForm]="clientForm"
+    [editTitle]="'Editar Cliente'"
     (edit)="handleEdit($event)"
     (delete)="handleDelete($event)"
   >

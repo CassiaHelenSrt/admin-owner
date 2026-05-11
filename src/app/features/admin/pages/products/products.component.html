@@ -7,6 +7,9 @@
   <app-admin-user-table
     [data]="products"
     [columns]="productColumns"
+    [editFields]="productFields"
+    [editForm]="productForm"
+    [editTitle]="'Editar Produto'"
     (edit)="handleEdit($event)"
     (delete)="handleDelete($event)"
   >

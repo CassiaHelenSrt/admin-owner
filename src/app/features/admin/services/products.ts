@@ -17,4 +17,8 @@ export class ProductsService {
   createProduct(clientData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/product`, clientData);
   }
+
+  updateProduct(id: number, data: any) {
+    return this.http.put(`http://localhost:3000/product/${id}`, data);
+  }
 }
