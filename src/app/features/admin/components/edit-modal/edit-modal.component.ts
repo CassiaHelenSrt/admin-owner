@@ -13,7 +13,7 @@ export class EditModalComponent {
   @Input() fields: any[] = [];
   @Input() form!: FormGroup;
 
-  @Output() save = new EventEmitter<any>(); // <-- Adicione isso
+  @Output() save = new EventEmitter<any>();
   @Output() close = new EventEmitter<void>();
 
   constructor() {}

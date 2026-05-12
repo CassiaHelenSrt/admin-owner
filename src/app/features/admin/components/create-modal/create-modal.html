@@ -2,13 +2,21 @@
   <h2>{{ title }}</h2>
 
   <form [formGroup]="form">
-    <div *ngFor="let field of fields">
-      <input [type]="field.type" [placeholder]="field.placeholder" [formControlName]="field.name" />
+    @for (field of fields; track $index) {
+      <div>
+        <input
+          [type]="field.type"
+          [placeholder]="field.placeholder"
+          [formControlName]="field.name"
+        />
 
-      <small *ngIf="form.get(field.name)?.invalid && form.get(field.name)?.touched">
-        {{ getErrorMessage(field.name) }}
-      </small>
-    </div>
+        @if (form.get(field.name)?.invalid && form.get(field.name)?.touched) {
+          <small>
+            {{ getErrorMessage(field.name) }}
+          </small>
+        }
+      </div>
+    }
   </form>
 
   <div class="btn">

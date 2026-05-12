@@ -34,6 +34,9 @@ export class AdminUserTable<T> {
 
   openEdit(item: any) {
     this.selectedItem = { ...item };
+
+    console.log('openEdit', this.selectedItem);
+
     // Preenche o formulário com os valores do item selecionado
     this.editForm.patchValue(item);
     this.modalType = 'edit';
@@ -49,9 +52,11 @@ export class AdminUserTable<T> {
     this.selectedItem = null;
   }
 
-  handleEdit(formValues: any) {
-    // Aqui sim você junta o ID (que está no selectedItem) com o que foi digitado (formValues)
-    const dataToSave = { ...this.selectedItem, ...formValues };
+  handleEdit() {
+    const dataToSave = {
+      ...this.selectedItem,
+      ...this.editForm.value,
+    };
 
     this.edit.emit(dataToSave); // Envia para o ProductsComponent
     this.closeModal(); // Fecha o modal

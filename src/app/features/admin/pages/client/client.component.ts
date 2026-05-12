@@ -110,6 +110,7 @@ export class ClientComponent {
   }
   handleEdit(client: Client) {
     const id = client.id;
+
     this.clientService.updateClient(id, this.clientForm.value).subscribe({
       next: () => {
         this.getClients();
