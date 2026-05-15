@@ -1,13 +1,9 @@
 <section>
-  <h2>Confirmar Exclusão</h2>
+  <h2>Tem certeza que deseja excluir "{{ data?.name }}"?</h2>
 
-  <div class="container">
-    <p>Tem certeza que deseja excluir "{{ data?.name }}"?</p>
+  <div class="btn">
+    <button (click)="cancel()">Cancelar</button>
 
-    <div class="btn">
-      <button (click)="cancel()">Cancelar</button>
-
-      <button (click)="confirmDelete()">Excluir</button>
-    </div>
+    <button (click)="confirmDelete()">Excluir</button>
   </div>
 </section>

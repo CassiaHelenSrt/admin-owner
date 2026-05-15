@@ -84,10 +84,10 @@ export class ProductsComponent {
   }
 
   ngOnInit() {
-    this.getproducts();
+    this.getProducts();
   }
 
-  getproducts() {
+  getProducts() {
     this.productsService.getProduct().subscribe({
       next: (res: any) => {
         this.products = res;
@@ -116,7 +116,7 @@ export class ProductsComponent {
 
     this.productsService.createProduct(data).subscribe({
       next: () => {
-        this.getproducts();
+        this.getProducts();
         this.closeCreateModal();
         this.toast.success('Criado com sucesso');
       },
@@ -131,7 +131,7 @@ export class ProductsComponent {
     const id = product.id;
     this.productsService.updateProduct(id, this.productForm.value).subscribe({
       next: () => {
-        this.getproducts();
+        this.getProducts();
 
         this.toast.success('Editado com sucesso');
       },
@@ -143,7 +143,18 @@ export class ProductsComponent {
     });
   }
 
-  handleDelete(item: Product) {
-    console.log('Excluir', item);
+  handleDelete(product: Product) {
+    this.productsService.deleteProduct(product.id).subscribe({
+      next: () => {
+        this.getProducts();
+        console.log(product);
+        this.toast.success('Excluido com sucesso');
+      },
+
+      error: (err) => {
+        const mensagem = err.error?.message || 'Erro interno';
+        this.toast.error(mensagem);
+      },
+    });
   }
 }

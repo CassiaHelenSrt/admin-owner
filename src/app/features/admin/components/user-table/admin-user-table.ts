@@ -67,8 +67,8 @@ export class AdminUserTable<T> {
   //   this.closeModal();
   // }
 
-  handleDelete(deleteClient: T) {
-    this.delete.emit(deleteClient);
+  handleDelete(deleteItem: T) {
+    this.delete.emit(deleteItem);
     this.closeModal();
   }
 }
