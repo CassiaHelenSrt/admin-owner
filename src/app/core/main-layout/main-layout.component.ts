@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 // import { SidebarComponent } from '@shared/sidebar/sidebar.component';
 import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 import { HeaderComponent } from '@shared/header/header.component';
+import { LoadingComponent } from '../components/loading/loading.component';
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent, HeaderComponent],
+  imports: [RouterOutlet, SidebarComponent, HeaderComponent, LoadingComponent],
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss'],
 })

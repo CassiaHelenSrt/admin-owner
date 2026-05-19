@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +10,13 @@ export class ProductsService {
 
   constructor(private http: HttpClient) {}
 
-  getProduct() {
+  getProducts() {
     return this.http.get(`${this.apiUrl}/product`);
   }
+
+  // getProducts() {
+  //   return this.http.get(`${this.apiUrl}/product`).pipe(delay(20000));
+  // }
 
   createProduct(clientData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/product`, clientData);

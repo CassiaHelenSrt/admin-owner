@@ -5,6 +5,7 @@ import { ToastService } from 'src/app/core/services/toast';
 import { ModalComponent } from '@shared/modal/modal.component';
 import { CreateModalComponent } from '../../components/create-modal/create-modal';
 import { FormBuilder, Validators } from '@angular/forms';
+import { LoadingComponent } from 'src/app/core/components/loading/loading.component';
 
 interface Product {
   id: number;
@@ -19,7 +20,7 @@ interface Product {
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [AdminUserTable, CreateModalComponent, ModalComponent],
+  imports: [AdminUserTable, CreateModalComponent, ModalComponent, LoadingComponent],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
@@ -33,7 +34,7 @@ export class ProductsComponent {
     { label: 'Duração', field: 'duration' },
     { label: 'Descrição', field: 'description', className: 'description' },
   ];
-
+  loading = true;
   products: Product[] = [];
   isCreateModalOpen = false;
 
@@ -88,13 +89,18 @@ export class ProductsComponent {
   }
 
   getProducts() {
-    this.productsService.getProduct().subscribe({
+    this.loading = true;
+
+    this.productsService.getProducts().subscribe({
       next: (res: any) => {
-        this.products = res;
+        console.log(res);
+        this.products = [...res];
+        this.loading = false;
       },
       error: (err) => {
         const mensagem = err.error?.message || 'Erro interno';
         this.toast.error(mensagem);
+        this.loading = false;
       },
     });
   }

@@ -10,6 +10,7 @@
     [editFields]="productFields"
     [editForm]="productForm"
     [editTitle]="'Editar Produto'"
+    [loading]="loading"
     (edit)="handleEdit($event)"
     (delete)="handleDelete($event)"
   >
@@ -27,4 +28,6 @@
       </app-create-modal>
     </app-modal>
   }
+
+  <app-loading [visible]="loading" [fullScreen]="false"></app-loading>
 </section>

@@ -16,10 +16,11 @@ export interface TableColumn<T> {
   standalone: true,
   imports: [CommonModule, ModalComponent, EditModalComponent, DeleteModalComponent],
   templateUrl: './admin-user-table.html',
-  styleUrl: './admin-user-table.scss',
+  styleUrls: ['./admin-user-table.scss'],
 })
 export class AdminUserTable<T> {
   @Input() data: T[] = [];
+  @Input() loading = false;
   @Input() columns: TableColumn<T>[] = [];
 
   @Input() editFields: any[] = [];

@@ -7,6 +7,9 @@
   <app-admin-user-table
     [data]="users"
     [columns]="usersColumns"
+    [editFields]="userFields"
+    [editForm]="userForm"
+    [editTitle]="'Editar Cliente'"
     (edit)="handleEdit($event)"
     (delete)="handleDelete($event)"
   >

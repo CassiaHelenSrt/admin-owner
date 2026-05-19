@@ -1,4 +1,4 @@
-<div class="table-container">
+<!-- <div class="table-container">
   <table>
     <thead>
       <tr>
@@ -39,10 +39,63 @@
     </tbody>
   </table>
 
-  @if (!data.length) {
+  @if (!data.length && !loading) {
     <div class="empty">Nenhum registro encontrado</div>
   }
+</div> -->
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        @for (column of columns; track column.field) {
+          <th>{{ column.label }}</th>
+        }
+
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (item of data; track $index) {
+        <tr>
+          @for (column of columns; track column.field) {
+            <td [attr.data-label]="column.label" [ngClass]="column.className">
+              @if (column.type === 'image') {
+                <img
+                  class="avatar"
+                  [src]="item[column.field] || '/assets/login.jpg'"
+                  alt="imagem"
+                />
+              } @else {
+                {{ item[column.field] }}
+              }
+            </td>
+          }
+
+          <td class="actions" data-label="Ações">
+            <button class="btn-edit" (click)="openEdit(item)">
+              <span class="material-symbols-outlined"> edit </span>
+            </button>
+
+            <button class="btn-delete" (click)="openDelete(item)">
+              <span class="material-symbols-outlined"> delete </span>
+            </button>
+          </td>
+        </tr>
+      } @empty {
+        @if (!loading) {
+          <tr>
+            <td colspan="100%">
+              <div class="empty">Nenhum registro encontrado</div>
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
 </div>
+
 @if (modalType) {
   <app-modal (closeModal)="closeModal()">
     @if (modalType === 'edit') {
