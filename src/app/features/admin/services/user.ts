@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,5 +12,13 @@ export class UserService {
 
   getUsers() {
     return this.http.get(`${this.apiUrl}/users`);
+  }
+
+  // getProducts() {
+  //   return this.http.get(`${this.apiUrl}/product`).pipe(delay(20000));
+  // }
+
+  updateUser(id: number, data: any) {
+    return this.http.put(`http://localhost:3000/user/${id}`, data);
   }
 }

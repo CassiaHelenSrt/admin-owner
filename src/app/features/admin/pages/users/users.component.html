@@ -9,9 +9,11 @@
     [columns]="usersColumns"
     [editFields]="userFields"
     [editForm]="userForm"
-    [editTitle]="'Editar Cliente'"
+    [editTitle]="'Editar usuário'"
     (edit)="handleEdit($event)"
     (delete)="handleDelete($event)"
   >
   </app-admin-user-table>
+
+  <app-loading [visible]="loading" [fullScreen]="false"></app-loading>
 </section>

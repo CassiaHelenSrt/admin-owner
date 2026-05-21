@@ -59,7 +59,7 @@ export class AdminUserTable<T> {
       ...this.editForm.value,
     };
 
-    this.edit.emit(dataToSave); // Envia para o ProductsComponent
+    this.edit.emit(dataToSave); // Envia para o component pai
     this.closeModal(); // Fecha o modal
   }
 
