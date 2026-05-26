@@ -1,6 +1,6 @@
 <section class="container">
   <div class="title">
-    <button class="btn-primary">
+    <button class="btn-primary" (click)="openCreateModal()">
       <span class="material-symbols-outlined">add</span> Novo colaborador
     </button>
   </div>
@@ -15,5 +15,17 @@
   >
   </app-admin-user-table>
 
+  @if (isCreateModalOpen) {
+    <app-modal (closeModal)="closeCreateModal()">
+      <app-create-modal
+        [title]="'Novo Colaborador'"
+        [fields]="userFields"
+        [form]="userForm"
+        (close)="closeCreateModal()"
+        (save)="handleCreate()"
+      >
+      </app-create-modal>
+    </app-modal>
+  }
   <app-loading [visible]="loading" [fullScreen]="false"></app-loading>
 </section>

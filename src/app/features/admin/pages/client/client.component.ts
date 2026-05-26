@@ -108,6 +108,7 @@ export class ClientComponent {
       },
     });
   }
+
   handleEdit(client: Client) {
     const id = client.id;
 

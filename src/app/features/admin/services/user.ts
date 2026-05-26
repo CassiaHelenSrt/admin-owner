@@ -14,9 +14,9 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/users`);
   }
 
-  // getProducts() {
-  //   return this.http.get(`${this.apiUrl}/product`).pipe(delay(20000));
-  // }
+  createUser(UserData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, UserData);
+  }
 
   updateEmployees(id: number, data: any) {
     return this.http.put(`http://localhost:3000/employees/${id}`, data);
