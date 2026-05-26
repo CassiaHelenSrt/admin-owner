@@ -18,7 +18,11 @@ export class UserService {
   //   return this.http.get(`${this.apiUrl}/product`).pipe(delay(20000));
   // }
 
-  updateUser(id: number, data: any) {
-    return this.http.put(`http://localhost:3000/user/${id}`, data);
+  updateEmployees(id: number, data: any) {
+    return this.http.put(`http://localhost:3000/employees/${id}`, data);
+  }
+
+  deleteEmployees(id: number) {
+    return this.http.delete(`http://localhost:3000/user/${id}`);
   }
 }

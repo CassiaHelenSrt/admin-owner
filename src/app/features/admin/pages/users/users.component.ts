@@ -88,13 +88,10 @@ export class UsersComponent {
   handleEdit(user: User) {
     const id = user.id;
 
-    console.log('oi');
-
-    this.userService.updateUser(id, this.userForm.value).subscribe({
+    this.userService.updateEmployees(id, this.userForm.value).subscribe({
       next: () => {
         this.getUsers();
-
-        this.toast.success('Editado com sucesso');
+        this.toast.success('Deletado com sucesso');
       },
 
       error: (err) => {
@@ -104,11 +101,17 @@ export class UsersComponent {
     });
   }
 
-  // handleEdit(item: User) {
-  //   console.log('Editar', item);
-  // }
+  handleDelete(user: User) {
+    this.userService.deleteEmployees(user.id).subscribe({
+      next: () => {
+        this.getUsers();
+        this.toast.success('Excluido com sucesso');
+      },
 
-  handleDelete(item: User) {
-    console.log('Excluir', item);
+      error: (err) => {
+        const mensagem = err.error?.message || 'Erro interno';
+        this.toast.error(mensagem);
+      },
+    });
   }
 }
