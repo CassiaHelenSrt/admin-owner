@@ -30,7 +30,6 @@ export class UsersComponent {
     { label: 'Id', field: 'id' },
     { label: 'Nome', field: 'name' },
     { label: 'E-mail', field: 'email' },
-    { label: 'senha', field: 'password' },
     { label: 'Permição', field: 'role' },
   ];
 
@@ -44,11 +43,6 @@ export class UsersComponent {
     {
       name: 'email',
       placeholder: 'E-mail',
-      type: 'email',
-    },
-    {
-      name: 'password',
-      placeholder: 'Senha',
       type: 'email',
     },
 
@@ -101,6 +95,13 @@ export class UsersComponent {
 
   closeCreateModal() {
     this.isCreateModalOpen = false;
+  }
+
+  get createFields() {
+    return [
+      ...this.userFields,
+      { name: 'password', placeholder: 'Senha', type: 'text' }, // O tipo 'password' esconde as letras ao digitar
+    ];
   }
 
   handleCreate() {

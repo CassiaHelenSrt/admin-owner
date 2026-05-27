@@ -19,7 +19,7 @@
     <app-modal (closeModal)="closeCreateModal()">
       <app-create-modal
         [title]="'Novo Colaborador'"
-        [fields]="userFields"
+        [fields]="createFields"
         [form]="userForm"
         (close)="closeCreateModal()"
         (save)="handleCreate()"
