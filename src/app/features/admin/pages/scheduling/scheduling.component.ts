@@ -2,16 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ModalComponent } from '@shared/modal/modal.component';
 import { SchedulingModalComponent } from '../../components/scheduling-modal/scheduling-modal.component ';
+import { SchedulingService } from '../../services/scheduling';
 
 interface Appointment {
   client: string;
   service: string;
-  date: string;
   start: string;
   end: string;
   status: string;
 }
-
 @Component({
   selector: 'app-scheduling',
   standalone: true,
@@ -22,78 +21,10 @@ interface Appointment {
 export class SchedulingComponent {
   currentDate = new Date();
 
-  days = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex'];
-
-  morningHours = ['08:00', '09:00', '10:00', '11:00'];
-  afternoonHours = ['13:00', '14:00', '15:00', '16:00'];
-  nightHours = ['18:00', '19:00', '20:00'];
-
-  appointments: Appointment[] = [
-    {
-      client: 'Maria Souza',
-      service: 'Extensão de Cílios',
-      start: '08:00',
-      end: '09:00',
-      status: 'confirmed',
-      date: '2026-03-17',
-    },
-    {
-      client: 'Maria Souza',
-      service: 'Extensão de Cílios',
-      start: '13:00',
-      end: '16:00',
-      status: 'confirmed',
-      date: '2026-03-17',
-    },
-    {
-      client: 'Juliana Almeida',
-      service: 'Volume Brasileiro',
-      start: '19:00',
-      end: '20:00',
-      status: 'pending',
-      date: '2026-03-17',
-    },
-    {
-      client: 'Juliana Almeida',
-      service: 'Volume Brasileiro',
-      start: '19:00',
-      end: '20:00',
-      status: 'finished',
-      date: '2026-03-06',
-    },
-    {
-      client: 'Juliana Almeida',
-      service: 'Volume Brasileiro',
-      start: '18:00',
-      end: '19:00',
-      status: 'canceled',
-      date: '2026-03-06',
-    },
-    {
-      client: 'Juliana Almeida',
-      service: 'Volume Brasileiro',
-      start: '19:00',
-      end: '20:00',
-      status: 'canceled',
-      date: '2026-03-07',
-    },
-    {
-      client: 'Juliana Almeida',
-      service: 'Volume Brasileiro',
-      start: '19:00',
-      end: '20:00',
-      status: 'canceled',
-      date: '2026-03-08',
-    },
-    {
-      client: 'Juliana Almeida',
-      service: 'Volume Brasileiro',
-      start: '08:00',
-      end: '09:00',
-      status: 'confirmed',
-      date: '2026-03-09',
-    },
-  ];
+  morningHours: string[] = [];
+  afternoonHours: string[] = [];
+  nightHours: string[] = [];
+  appointments: Appointment[] = [];
 
   modalType: 'create' | null = null;
   selectedItem: any = null;
@@ -104,62 +35,125 @@ export class SchedulingComponent {
   allHours: string[] = [];
   formattedDate = '';
 
-  ngOnInit() {
-    this.allHours = [...this.morningHours, ...this.afternoonHours, ...this.nightHours];
-    this.updateDate();
-    this.generateMap();
-    this.getAppointmentsOfDay();
+  constructor(private schedulingService: SchedulingService) {
+    this.loadSchedules();
   }
 
-  updateDate() {
-    const d = this.currentDate;
-
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-
-    this.formattedDate = `${year}-${month}-${day}`;
+  ngOnInit(): void {
+    this.updateCalendarView();
   }
 
-  generateMap() {
-    const date = this.formattedDate;
+  loadSchedules() {
+    const year = this.currentDate.getFullYear();
+    const month = String(this.currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(this.currentDate.getDate()).padStart(2, '0');
+    const dateStr = `${year}-${month}-${day}`;
 
+    const productId = 3;
+
+    this.schedulingService.getAvailableSlots(dateStr, productId).subscribe({
+      next: (slotsData) => {
+        this.processHours(slotsData.slots || []);
+
+        this.schedulingService.getScheduling(dateStr).subscribe({
+          next: (schedulesData) => {
+            this.processAppointments(schedulesData);
+          },
+          error: (err) => console.error('Erro ao buscar agendamentos:', err),
+        });
+      },
+      error: (err) => {
+        console.error('Erro ao buscar blocos de horário:', err);
+        this.clearScreen();
+      },
+    });
+  }
+
+  processHours(slotsFromBackend: any[]) {
+    this.allHours = [];
+    this.morningHours = [];
+    this.afternoonHours = [];
+    this.nightHours = [];
+
+    slotsFromBackend.forEach((slot) => {
+      const hourStr = slot.time;
+      const hourNum = parseInt(hourStr.split(':')[0], 10);
+
+      this.allHours.push(hourStr);
+
+      if (hourNum < 12) {
+        this.morningHours.push(hourStr as never);
+      } else if (hourNum >= 12 && hourNum < 18) {
+        this.afternoonHours.push(hourStr as never);
+      } else {
+        this.nightHours.push(hourStr as never);
+      }
+    });
+  }
+
+  processAppointments(backendData: any): void {
     this.appointmentMap = {};
 
-    for (const a of this.appointments) {
-      if (a.date === date) {
-        this.appointmentMap[a.start] = a;
-      }
-    }
-  }
+    // Blindagem caso o backend retorne o formato de turnos ou lista pura
+    const list = Array.isArray(backendData) ? backendData : backendData?.todos || [];
 
-  getAppointment(hour: string) {
-    const date = this.formattedDate;
-    console.log(date);
+    this.appointmentsOfDay = list.map((item: any) => {
+      const dateLocal = new Date(item.startTime);
 
-    return this.appointments.find((a) => a.date === date && a.start === hour);
-  }
+      const hours = String(dateLocal.getHours()).padStart(2, '0');
+      const minutes = String(dateLocal.getMinutes()).padStart(2, '0');
 
-  getAppointmentsOfDay() {
-    this.appointmentsOfDay = this.appointments.filter((a) => a.date === this.formattedDate);
+      const startHour = `${hours}:${minutes}`;
+
+      const dateEndLocal = new Date(item.endTime);
+      const endHours = String(dateEndLocal.getHours()).padStart(2, '0');
+      const endMinutes = String(dateEndLocal.getMinutes()).padStart(2, '0');
+      const endHour = `${endHours}:${endMinutes}`;
+
+      const appointment: Appointment = {
+        client: item.client?.name || 'Cliente Sem Nome',
+        service: item.product?.name || 'Serviço Não Informado',
+        start: startHour,
+        end: endHour,
+        status: item.status || 'pending',
+      };
+
+      this.appointmentMap[startHour] = appointment;
+
+      console.log('appointment', appointment);
+      return appointment;
+    });
   }
 
   nextDay() {
     this.currentDate.setDate(this.currentDate.getDate() + 1);
     this.currentDate = new Date(this.currentDate);
-
-    this.updateDate();
-    this.generateMap();
-    this.getAppointmentsOfDay();
+    this.updateCalendarView();
   }
 
   prevDay() {
     this.currentDate.setDate(this.currentDate.getDate() - 1);
     this.currentDate = new Date(this.currentDate);
+    this.updateCalendarView();
+  }
 
-    this.updateDate();
-    this.generateMap();
-    this.getAppointmentsOfDay();
+  private updateCalendarView(): void {
+    this.formattedDate = this.currentDate.toLocaleDateString('pt-BR', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+    this.loadSchedules();
+  }
+
+  private clearScreen(): void {
+    this.allHours = [];
+    this.morningHours = [];
+    this.afternoonHours = [];
+    this.nightHours = [];
+    this.appointmentsOfDay = [];
+    this.appointmentMap = {};
   }
 
   openCreateModal() {

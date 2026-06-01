@@ -30,7 +30,6 @@
       </button>
     </div>
     <div class="calendar-grid">
-      <!-- Cabeçalho -->
       <div></div>
       <div class="title">Manhã</div>
       <div class="title">Tarde</div>
@@ -42,29 +41,30 @@
 
         <!-- MANHÃ -->
         <div>
-          @if (morningHours.includes(hour) && appointmentMap[hour]; as appointment) {
-            <div class="event" [ngClass]="appointment.status">
-              <small>{{ appointment.client }}</small>
-              <p>{{ appointment.service }}</p>
+          @if (morningHours.includes(hour) && appointmentMap[hour]) {
+            <div class="event" [ngClass]="appointmentMap[hour].status">
+              <small>{{ appointmentMap[hour].client }}</small>
+              <p>{{ appointmentMap[hour].service }}</p>
             </div>
           }
         </div>
 
+        <!-- TARDE -->
         <div>
-          @if (afternoonHours.includes(hour) && appointmentMap[hour]; as appointment) {
-            <div class="event" [ngClass]="appointment.status">
-              <small>{{ appointment.client }}</small>
-              <p>{{ appointment.service }}</p>
+          @if (afternoonHours.includes(hour) && appointmentMap[hour]) {
+            <div class="event" [ngClass]="appointmentMap[hour].status">
+              <small>{{ appointmentMap[hour].client }}</small>
+              <p>{{ appointmentMap[hour].service }}</p>
             </div>
           }
         </div>
 
         <!-- NOITE -->
         <div>
-          @if (nightHours.includes(hour) && appointmentMap[hour]; as appointment) {
-            <div class="event" [ngClass]="appointment.status">
-              <small>{{ appointment.client }}</small>
-              <p>{{ appointment.service }}</p>
+          @if (nightHours.includes(hour) && appointmentMap[hour]) {
+            <div class="event" [ngClass]="appointmentMap[hour].status">
+              <small>{{ appointmentMap[hour].client }}</small>
+              <p>{{ appointmentMap[hour].service }}</p>
             </div>
           }
         </div>
