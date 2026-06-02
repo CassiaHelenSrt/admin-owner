@@ -49,15 +49,17 @@ export class SchedulingComponent {
     const day = String(this.currentDate.getDate()).padStart(2, '0');
     const dateStr = `${year}-${month}-${day}`;
 
-    const productId = 3;
+    // esta variavel tem um produto com duracao de 30 minitos ele ajuda nos horarios de slot
+    const idProdutoDe30Minutos = 3;
 
-    this.schedulingService.getAvailableSlots(dateStr, productId).subscribe({
+    this.schedulingService.getAvailableSlots(dateStr, idProdutoDe30Minutos).subscribe({
       next: (slotsData) => {
         this.processHours(slotsData.slots || []);
 
         this.schedulingService.getScheduling(dateStr).subscribe({
           next: (schedulesData) => {
             this.processAppointments(schedulesData);
+            console.log('schedulesData', schedulesData);
           },
           error: (err) => console.error('Erro ao buscar agendamentos:', err),
         });
@@ -94,8 +96,12 @@ export class SchedulingComponent {
   processAppointments(backendData: any): void {
     this.appointmentMap = {};
 
+    console.log('backendData', backendData);
+
     // Blindagem caso o backend retorne o formato de turnos ou lista pura
     const list = Array.isArray(backendData) ? backendData : backendData?.todos || [];
+
+    console.log('list', list);
 
     this.appointmentsOfDay = list.map((item: any) => {
       const dateLocal = new Date(item.startTime);
@@ -120,7 +126,6 @@ export class SchedulingComponent {
 
       this.appointmentMap[startHour] = appointment;
 
-      console.log('appointment', appointment);
       return appointment;
     });
   }
