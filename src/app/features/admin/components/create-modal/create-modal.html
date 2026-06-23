@@ -3,25 +3,34 @@
 
   <form [formGroup]="form">
     @for (field of fields; track $index) {
-      <div>
-        <input
-          [type]="field.type"
-          [placeholder]="field.placeholder"
-          [formControlName]="field.name"
-        />
+      @if (field.name !== 'photo' && field.name !== 'image') {
+        <div>
+          <input
+            [type]="field.type"
+            [placeholder]="field.placeholder"
+            [formControlName]="field.name"
+          />
 
-        @if (form.get(field.name)?.invalid && form.get(field.name)?.touched) {
-          <small>
-            {{ getErrorMessage(field.name) }}
-          </small>
-        }
-      </div>
+          @if (form.get(field.name)?.invalid && form.get(field.name)?.touched) {
+            <small>
+              {{ getErrorMessage(field.name) }}
+            </small>
+          }
+        </div>
+      }
     }
+
+    <!-- 📷 Botão fixo para selecionar a foto adicionado aqui -->
+    <div class="file-upload-container" style="margin: 15px 0">
+      <label for="foto-produto" style="display: block; margin-bottom: 5px; font-weight: bold">
+        Foto do Produto:
+      </label>
+      <input id="foto-produto" type="file" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
   </form>
 
   <div class="btn">
     <button (click)="closeModal()">Cancelar</button>
-
     <button (click)="submit()">Criar</button>
   </div>
 </section>

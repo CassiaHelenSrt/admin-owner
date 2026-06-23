@@ -64,7 +64,11 @@
               @if (column.type === 'image') {
                 <img
                   class="avatar"
-                  [src]="item[column.field] || '/assets/login.jpg'"
+                  [src]="
+                    item[column.field]
+                      ? 'http://localhost:3000/' + item[column.field]
+                      : '/assets/login.jpg'
+                  "
                   alt="imagem"
                 />
               } @else {

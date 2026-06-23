@@ -18,7 +18,16 @@ export class CreateModalComponent {
 
   @Output() close = new EventEmitter<void>();
 
+  @Output() fileChange = new EventEmitter<File>();
+
   constructor() {}
+
+  onFileSelected(event: any) {
+    const file = event.target.files?.[0];
+    if (file) {
+      this.fileChange.emit(file);
+    }
+  }
 
   submit() {
     if (this.form.valid) {

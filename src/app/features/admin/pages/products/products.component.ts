@@ -10,7 +10,7 @@ import { LoadingComponent } from 'src/app/core/components/loading/loading.compon
 interface Product {
   id: number;
   name: string;
-  image: string;
+  photo: string;
   type: string;
   price: number;
   duration: number;
@@ -27,20 +27,30 @@ interface Product {
 export class ProductsComponent {
   productColumns: TableColumn<Product>[] = [
     { label: 'Id', field: 'id' },
-    { label: 'Foto', field: 'image', type: 'image' },
+    { label: 'Foto', field: 'photo', type: 'image' },
     { label: 'Nome', field: 'name' },
     { label: 'Tipo', field: 'type' },
     { label: 'Preço', field: 'price' },
     { label: 'Duração', field: 'duration' },
     { label: 'Descrição', field: 'description', className: 'description' },
   ];
+
   loading = true;
+
   products: Product[] = [];
+
   isCreateModalOpen = false;
+
+  fotoSelecionada: File | null = null;
 
   productForm;
 
   productFields = [
+    {
+      name: 'photo',
+      placeholder: 'Foto',
+      type: 'file', // Tipo arquivo
+    },
     {
       name: 'name',
       placeholder: 'Nome',
@@ -76,6 +86,7 @@ export class ProductsComponent {
     private fb: FormBuilder,
   ) {
     this.productForm = this.fb.group({
+      photo: [null],
       name: ['', Validators.required],
       type: ['', Validators.required],
       price: ['', Validators.required],
@@ -86,6 +97,23 @@ export class ProductsComponent {
 
   ngOnInit() {
     this.getProducts();
+  }
+
+  onFileChange(file: any) {
+    // Se o evento vier direto com o arquivo físico
+    if (file instanceof File) {
+      this.fotoSelecionada = file;
+    }
+    // Se o evento vier do input de arquivo padrão do navegador
+    else if (file?.target?.files?.[0]) {
+      this.fotoSelecionada = file.target.files[0];
+    }
+    // Caso venha em outro formato customizado do seu modal
+    else {
+      this.fotoSelecionada = file;
+    }
+
+    console.log('Foto salva na variável:', this.fotoSelecionada);
   }
 
   getProducts() {
@@ -114,18 +142,41 @@ export class ProductsComponent {
   }
 
   handleCreate() {
-    const data = {
-      ...this.productForm.value,
+    if (this.productForm.invalid) return;
 
-      price: Number(this.productForm.value.price?.toString().replace(/\./g, '').replace(',', '.')),
-    };
+    // 1. Criamos a "caixa" FormData
+    const formData = new FormData();
 
-    this.productsService.createProduct(data).subscribe({
+    // 2. Colocamos os textos normais dentro dela
+    formData.append('name', this.productForm.value.name || '');
+    formData.append('type', this.productForm.value.type || '');
+    formData.append('duration', this.productForm.value.duration || '');
+    formData.append('description', this.productForm.value.description || '');
+
+    // Tratamento do preço que você já fazia
+    const precoTratado = Number(
+      this.productForm.value.price?.toString().replace(/\./g, '').replace(',', '.'),
+    );
+
+    formData.append('price', precoTratado.toString());
+
+    // 3. Colocamos a foto apenas se o usuário escolheu uma
+    if (this.fotoSelecionada) {
+      formData.append('photo', this.fotoSelecionada, this.fotoSelecionada.name);
+    }
+
+    console.log('Dados do Formulário:', Object.fromEntries(formData));
+
+    // 4. Enviamos o formData para o seu serviço
+    this.productsService.createProduct(formData).subscribe({
       next: () => {
         this.getProducts();
         this.closeCreateModal();
         this.toast.success('Criado com sucesso');
+        this.fotoSelecionada = null; // Limpa a foto para a próxima vez
+        this.productForm.reset();
       },
+
       error: (err) => {
         const mensagem = err.error?.message || 'Erro interno';
         this.toast.error(mensagem);

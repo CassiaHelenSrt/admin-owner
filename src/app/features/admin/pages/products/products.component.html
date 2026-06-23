@@ -22,6 +22,7 @@
         [title]="'Novo Serviço'"
         [fields]="productFields"
         [form]="productForm"
+        (fileChange)="onFileChange($event)"
         (close)="closeCreateModal()"
         (save)="handleCreate()"
       >
