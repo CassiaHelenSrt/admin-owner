@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { delay, Observable } from 'rxjs';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { delay, Observable } from 'rxjs';
 export class ProductsService {
   private apiUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   getProducts() {
     return this.http.get(`${this.apiUrl}/product`);

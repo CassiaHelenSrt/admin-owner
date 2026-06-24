@@ -1,25 +1,23 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, delay } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoadingService {
-  // private loadingSubject = new BehaviorSubject(false);
-  private loadingSubject = new BehaviorSubject<boolean>(false);
+  // 1. Criamos um signal privado mutável
+  private visibleSignal = signal<boolean>(false);
 
-  // loading$ = this.loadingSubject.asObservable();
-  loading$ = this.loadingSubject.asObservable().pipe(delay(0));
+  // 2. Expomos uma versão apenas de leitura para os componentes
+  isVisible = this.visibleSignal.asReadonly();
 
   show() {
     console.log('SHOW');
-
-    this.loadingSubject.next(true);
+    // 3. Atualizamos o valor usando .set()
+    this.visibleSignal.set(true);
   }
 
   hide() {
     console.log('HIDE');
-
-    this.loadingSubject.next(false);
+    this.visibleSignal.set(false);
   }
 }

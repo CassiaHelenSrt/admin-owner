@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 
 import { Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { InputComponent } from '@shared/components/input/input.component';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { LoadingService } from 'src/app/core/services/loading.service';
 import { ToastService } from 'src/app/core/services/toast';
 
 @Component({
@@ -18,13 +19,12 @@ import { ToastService } from 'src/app/core/services/toast';
 })
 export class LoginComponent {
   private formBuilder = inject(FormBuilder);
-  loading = false;
+  private authService = inject(AuthService);
+  private toast = inject(ToastService);
+  private router = inject(Router);
+  private loadingService = inject(LoadingService); // Injetado
 
-  constructor(
-    private authService: AuthService,
-    private toast: ToastService,
-    private router: Router,
-  ) {}
+  isLoggingIn = signal<boolean>(false);
 
   protected loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -42,15 +42,17 @@ export class LoginComponent {
   }
 
   private login(email: string, password: string) {
-    this.loading = true;
+    // 2. Ativamos os loaders (local e global)
+    this.isLoggingIn.set(true);
+    this.loadingService.show();
 
     this.authService.login(email, password).subscribe({
       next: () => {
-        this.loading = false;
+        this.isLoggingIn.set(false);
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        this.loading = false;
+        this.isLoggingIn.set(false);
         const mensagem = err.error?.message || 'Erro interno';
         this.toast.error(mensagem);
       },
